@@ -252,6 +252,7 @@ const shopCategoriesDef: CategoryDef[] = [
         items: 201,
     },
 ];
+
 const blogCategoriesDef: CategoryDef[] = [
     {
         name: 'Latest News',

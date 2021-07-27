@@ -83,6 +83,8 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
             this.shop.getCategories(null, 1).pipe(
                 takeUntil(this.destroy$),
             ).subscribe(categories => this.categories = this.getCategoriesWithDepth(categories));
+            console.log(this.categories);
+            
         }
     }
 
