@@ -7,213 +7,213 @@ let lastCategoryId = 0;
 
 const shopCategoriesDef: CategoryDef[] = [
     {
-        name: 'Instruments',
+        descripcion: 'Instruments',
         slug: 'instruments',
         items: 272,
         children: [
             {
-                name: 'Power Tools',
+                descripcion: 'Power Tools',
                 slug: 'power-tools',
                 image: 'assets/images/categories/category-1.jpg',
                 items: 370,
                 children: [
                     {
-                        name: 'Drills & Mixers',
+                        descripcion: 'Drills & Mixers',
                         slug: 'drills-mixers',
                         items: 57,
                     },
                     {
-                        name: 'Cordless Screwdrivers',
+                        descripcion: 'Cordless Screwdrivers',
                         slug: 'cordless-screwdrivers',
                         items: 15,
                     },
                     {
-                        name: 'Screwdrivers',
+                        descripcion: 'Screwdrivers',
                         slug: 'screwdrivers',
                         items: 126,
                     },
                     {
-                        name: 'Wrenches',
+                        descripcion: 'Wrenches',
                         slug: 'wrenches',
                         items: 12,
                     },
                     {
-                        name: 'Grinding Machines',
+                        descripcion: 'Grinding Machines',
                         slug: 'grinding-machines',
                         items: 25,
                     },
                     {
-                        name: 'Milling Cutters',
+                        descripcion: 'Milling Cutters',
                         slug: 'milling-cutters',
                         items: 78,
                     },
                     {
-                        name: 'Electric Spray Guns',
+                        descripcion: 'Electric Spray Guns',
                         slug: 'electric-spray-guns',
                         items: 3,
                     },
                 ],
             },
             {
-                name: 'Hand Tools',
+                descripcion: 'Hand Tools',
                 slug: 'hand-tools',
                 image: 'assets/images/categories/category-2.jpg',
                 items: 134,
                 children: [
                     {
-                        name: 'Tool Kits',
+                        descripcion: 'Tool Kits',
                         slug: 'tool-kits',
                         items: 57,
                     },
                     {
-                        name: 'Hammers',
+                        descripcion: 'Hammers',
                         slug: 'hammers',
                         items: 15,
                     },
                     {
-                        name: 'Spanners',
+                        descripcion: 'Spanners',
                         slug: 'spanners',
                         items: 5,
                     },
                     {
-                        name: 'Handsaws',
+                        descripcion: 'Handsaws',
                         slug: 'handsaws',
                         items: 54,
                     },
                     {
-                        name: 'Paint Tools',
+                        descripcion: 'Paint Tools',
                         slug: 'paint-tools',
                         items: 13,
                     },
                 ],
             },
             {
-                name: 'Machine Tools',
+                descripcion: 'Machine Tools',
                 slug: 'machine-tools',
                 image: 'assets/images/categories/category-3.jpg',
                 items: 302,
                 children: [
                     {
-                        name: 'Lathes',
+                        descripcion: 'Lathes',
                         slug: 'lathes',
                         items: 104,
                     },
                     {
-                        name: 'Milling Machines',
+                        descripcion: 'Milling Machines',
                         slug: 'milling-machines',
                         items: 12,
                     },
                     {
-                        name: 'Grinding Machines',
+                        descripcion: 'Grinding Machines',
                         slug: 'grinding-machines',
                         items: 67,
                     },
                     {
-                        name: 'CNC Machines',
+                        descripcion: 'CNC Machines',
                         slug: 'cnc-machines',
                         items: 5,
                     },
                     {
-                        name: 'Sharpening Machines',
+                        descripcion: 'Sharpening Machines',
                         slug: 'sharpening-machines',
                         items: 88,
                     },
                 ],
             },
             {
-                name: 'Power Machinery',
+                descripcion: 'Power Machinery',
                 slug: 'power-machinery',
                 image: 'assets/images/categories/category-4.jpg',
                 items: 79,
                 children: [
                     {
-                        name: 'Generators',
+                        descripcion: 'Generators',
                         slug: 'generators',
                         items: 23,
                     },
                     {
-                        name: 'Compressors',
+                        descripcion: 'Compressors',
                         slug: 'compressors',
                         items: 76,
                     },
                     {
-                        name: 'Winches',
+                        descripcion: 'Winches',
                         slug: 'winches',
                         items: 43,
                     },
                     {
-                        name: 'Plasma Cutting',
+                        descripcion: 'Plasma Cutting',
                         slug: 'plasma-cutting',
                         items: 128,
                     },
                     {
-                        name: 'Electric Motors',
+                        descripcion: 'Electric Motors',
                         slug: 'electric-motors',
                         items: 76,
                     },
                 ],
             },
             {
-                name: 'Measurement',
+                descripcion: 'Measurement',
                 slug: 'measurement',
                 image: 'assets/images/categories/category-5.jpg',
                 items: 366,
                 children: [
                     {
-                        name: 'Tape Measure',
+                        descripcion: 'Tape Measure',
                         slug: 'tape-measure',
                         items: 57,
                     },
                     {
-                        name: 'Theodolites',
+                        descripcion: 'Theodolites',
                         slug: 'theodolites',
                         items: 5,
                     },
                     {
-                        name: 'Thermal Imagers',
+                        descripcion: 'Thermal Imagers',
                         slug: 'thermal-imagers',
                         items: 3,
                     },
                     {
-                        name: 'Calipers',
+                        descripcion: 'Calipers',
                         slug: 'calipers',
                         items: 37,
                     },
                     {
-                        name: 'Levels',
+                        descripcion: 'Levels',
                         slug: 'levels',
                         items: 14,
                     },
                 ],
             },
             {
-                name: 'Clothes and PPE',
+                descripcion: 'Clothes and PPE',
                 slug: 'clothes-and-ppe',
                 image: 'assets/images/categories/category-6.jpg',
                 items: 82,
                 children: [
                     {
-                        name: 'Winter Workwear',
+                        descripcion: 'Winter Workwear',
                         slug: 'winter-workwear',
                         items: 24,
                     },
                     {
-                        name: 'Summer Workwear',
+                        descripcion: 'Summer Workwear',
                         slug: 'summer-workwear',
                         items: 87,
                     },
                     {
-                        name: 'Helmets',
+                        descripcion: 'Helmets',
                         slug: 'helmets',
                         items: 9,
                     },
                     {
-                        name: 'Belts and Bags',
+                        descripcion: 'Belts and Bags',
                         slug: 'belts-and-bags',
                         items: 1,
                     },
                     {
-                        name: 'Work Shoes',
+                        descripcion: 'Work Shoes',
                         slug: 'work-shoes',
                         items: 0,
                     },
@@ -222,32 +222,32 @@ const shopCategoriesDef: CategoryDef[] = [
         ],
     },
     {
-        name: 'Electronics',
+        descripcion: 'Electronics',
         slug: 'electronics',
         items: 54,
     },
     {
-        name: 'Computers',
+        descripcion: 'Computers',
         slug: 'computers',
         items: 421,
     },
     {
-        name: 'Automotive',
+        descripcion: 'Automotive',
         slug: 'automotive',
         items: 182,
     },
     {
-        name: 'Furniture & Appliances',
+        descripcion: 'Furniture & Appliances',
         slug: 'furniture-appliances',
         items: 15,
     },
     {
-        name: 'Music & Books',
+        descripcion: 'Music & Books',
         slug: 'music-books',
         items: 89,
     },
     {
-        name: 'Health & Beauty',
+        descripcion: 'Health & Beauty',
         slug: 'health-beauty',
         items: 201,
     },
@@ -255,57 +255,57 @@ const shopCategoriesDef: CategoryDef[] = [
 
 const blogCategoriesDef: CategoryDef[] = [
     {
-        name: 'Latest News',
+        descripcion: 'Latest News',
         slug: 'latest-news',
     },
     {
-        name: 'Special Offers',
+        descripcion: 'Special Offers',
         slug: 'special-offers',
         children: [
             {
-                name: 'Spring Sales',
+                descripcion: 'Spring Sales',
                 slug: 'spring-sales',
             },
             {
-                name: 'Summer Sales',
+                descripcion: 'Summer Sales',
                 slug: 'summer-sales',
             },
             {
-                name: 'Autumn Sales',
+                descripcion: 'Autumn Sales',
                 slug: 'autumn-sales',
             },
             {
-                name: 'Christmas Sales',
+                descripcion: 'Christmas Sales',
                 slug: 'christmas-sales',
             },
             {
-                name: 'Other Sales',
+                descripcion: 'Other Sales',
                 slug: 'other-sales',
             }
         ],
     },
     {
-        name: 'New Arrivals',
+        descripcion: 'New Arrivals',
         slug: 'new-arrivals',
     },
     {
-        name: 'Reviews',
+        descripcion: 'Reviews',
         slug: 'reviews',
     },
     {
-        name: 'Drills and Mixers',
+        descripcion: 'Drills and Mixers',
         slug: 'drills-and-mixers',
     },
     {
-        name: 'Cordless Screwdrivers',
+        descripcion: 'Cordless Screwdrivers',
         slug: 'cordless-screwdrivers',
     },
     {
-        name: 'Screwdrivers',
+        descripcion: 'Screwdrivers',
         slug: 'screwdrivers',
     },
     {
-        name: 'Wrenches',
+        descripcion: 'Wrenches',
         slug: 'wrenches',
     },
 ];
@@ -316,7 +316,7 @@ function walkTree(categoriesType: 'shop'|'blog', categoriesDef: CategoryDef[], p
         const category: Category = {
             id: ++lastCategoryId,
             type: categoriesType,
-            name: categoryDef.name,
+            descripcion: categoryDef.descripcion,
             slug: categoryDef.slug,
             path: [...parents.map(x => x.slug), categoryDef.slug].join('/'),
             image: categoryDef.image || null,
@@ -355,6 +355,9 @@ function getCategoriesTree(categoriesType: 'shop'|'blog', parentSlug: string|nul
     const list = categoriesType === 'shop' ? shopCategoriesList : blogCategoriesList;
     const tree = categoriesType === 'shop' ? shopCategoriesTree : blogCategoriesTree;
 
+    console.log(list);
+    console.log(tree);
+    
     if (parentSlug === null) {
         categories = tree.slice();
     } else {

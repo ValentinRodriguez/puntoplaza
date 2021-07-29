@@ -383,7 +383,7 @@ function makeFilterItem(filterType: 'check'|'color'|'radio', value: FilterListVa
 function makeCategoryFilterItem(type: 'parent'|'current'|'child', category: Category): CategoryFilterItem {
     return {
         slug: category.slug,
-        name: category.name,
+        name: category.descripcion,
         type,
         category: {...category, children: null, parents: null},
         count: category.items,

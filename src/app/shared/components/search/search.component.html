@@ -1,17 +1,10 @@
 <div class="search__body">
     <form [formGroup]="form" class="search__form">
-        <select
-            *ngIf="location === 'header'"
-            class="search__categories"
-            aria-label="Category"
-            formControlName="category"
-            (focus)="closeSuggestion()"
-        >
+        <select *ngIf="location === 'header'" class="search__categories" aria-label="Category"
+                formControlName="category" (focus)="closeSuggestion()">
             <option value="all">All Categories</option>
-            <option
-                *ngFor="let category of categories"
-                [value]="category.slug"
-                [innerHTML]="getCategoryName(category)"
+            <option *ngFor="let category of categories" [value]="category.slug"
+                    [innerHTML]="getCategoryName(category)"
             ></option>
         </select>
         <input

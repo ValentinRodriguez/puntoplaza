@@ -3,7 +3,7 @@ import { CustomFields } from './custom-fields';
 export interface Category {
     id: number;
     type: 'shop'|'blog';
-    name: string;
+    descripcion: string;
     slug: string;
     path: string;
     image: string|null;

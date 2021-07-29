@@ -11,11 +11,11 @@
                     </div>
                     <div class="category-card__content">
                         <div class="category-card__name">
-                            <a [routerLink]="root.category(category)">{{ category.name }}</a>
+                            <a [routerLink]="root.category(category)">{{ category.descripcion }}</a>
                         </div>
                         <ul class="category-card__links">
                             <li *ngFor="let category of category.children?.slice(0, 5)">
-                                <a [routerLink]="root.category(category)">{{ category.name }}</a>
+                                <a [routerLink]="root.category(category)">{{ category.descripcion }}</a>
                             </li>
                         </ul>
                         <div class="category-card__all">

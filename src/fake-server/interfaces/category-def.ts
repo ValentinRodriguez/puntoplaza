@@ -1,5 +1,5 @@
 export interface CategoryDef {
-    name: string;
+    descripcion: string;
     slug: string;
     image?: string;
     items?: number;

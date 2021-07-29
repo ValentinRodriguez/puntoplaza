@@ -21,6 +21,7 @@ import {
     getProductsList,
 } from '../../../fake-server';
 import { getSuggestions } from 'src/fake-server/database/products';
+import { environment } from 'src/environments/environment';
 
 export interface ListOptions {
     page?: number;
@@ -28,7 +29,7 @@ export interface ListOptions {
     sort?: string;
     filterValues?: SerializedFilterValues;
 }
-
+const URL = environment.url;
 @Injectable({
     providedIn: 'root'
 })
@@ -82,7 +83,10 @@ export class ShopService {
         // return this.http.get<Category[]>('https://example.com/api/shop/categories.json', {params});
 
         // This is for demonstration purposes only. Remove it and use the code above.
-        return getShopCategoriesTree(parent ? parent.slug : null, depth);
+        console.log(parent);
+        
+        return this.http.get<Category[]>( `${URL}/categorias-plaza`)
+        // return getShopCategoriesTree(parent ? parent.slug : null, depth);
     }
 
     /**

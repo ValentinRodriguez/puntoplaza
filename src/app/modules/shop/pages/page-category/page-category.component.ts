@@ -52,7 +52,7 @@ export class PageCategoryComponent implements OnDestroy {
 
                 this.breadcrumbs = this.breadcrumbs.concat([
                     ...data.category.parents.map(
-                        (parent: Category) => ({label: parent.name, url: this.root.category(parent)})
+                        (parent: Category) => ({label: parent.descripcion, url: this.root.category(parent)})
                     ),
                     {label: data.category.name, url: this.root.category(data.category)},
                 ]);

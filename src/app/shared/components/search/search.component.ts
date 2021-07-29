@@ -20,6 +20,7 @@ import { ShopService } from '../../api/shop.service';
 import { Category } from '../../interfaces/category';
 import { DOCUMENT } from '@angular/common';
 import { CartService } from '../../services/cart.service';
+import { Respuesta } from '../../interfaces/response';
 
 export type SearchLocation = 'header' | 'indicator' | 'mobile-header';
 
@@ -82,9 +83,11 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
         if (changes.location && this.location === 'header') {
             this.shop.getCategories(null, 1).pipe(
                 takeUntil(this.destroy$),
-            ).subscribe(categories => this.categories = this.getCategoriesWithDepth(categories));
-            console.log(this.categories);
-            
+            ).subscribe((categories: any) => {
+                console.log(categories.data);                
+                // this.categories = this.getCategoriesWithDepth(categories)
+                // console.log(this.categories);            
+            });
         }
     }
 
@@ -162,7 +165,7 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     getCategoryName(category: CategoryWithDepth): string {
-        return '&nbsp;'.repeat(category.depth * 4) + category.name;
+        return '&nbsp;'.repeat(category.depth * 2) + category.descripcion;
     }
 
     addToCart(product: Product): void {
@@ -179,6 +182,8 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     private getCategoriesWithDepth(categories: Category[], depth = 0): CategoryWithDepth[] {
+        // console.log(categories);
+        
         return categories.reduce<CategoryWithDepth[]>((acc, category) => [
             ...acc,
             {...category, depth},
