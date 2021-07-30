@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category } from '../interfaces/category';
 import { HttpClient } from '@angular/common/http';
@@ -34,10 +34,10 @@ const URL = environment.url;
     providedIn: 'root'
 })
 export class ShopService {
+
+    categoria = new EventEmitter();
     // noinspection JSUnusedLocalSymbols
-    constructor(
-        private http: HttpClient,
-    ) { }
+    constructor(private http: HttpClient) { }
 
     /**
      * Returns category object by slug.
@@ -65,26 +65,7 @@ export class ShopService {
      * @param parent - If a parent is specified then its descendants will be returned.
      * @param depth  - Maximum depth of category tree.
      */
-    getCategories(parent: Partial<Category>|null = null, depth: number = 0): Observable<Category[]> {
-        /**
-         * This is what your API endpoint might look like:
-         *
-         * https://example.com/api/shop/categories.json?parent=latest-news&depth=1
-         *
-         * where:
-         * - parent = parent.slug
-         * - depth  = depth
-         */
-        // const params: {[param: string]: string} = {
-        //     parent: parent.slug,
-        //     depth: depth.toString(),
-        // };
-        //
-        // return this.http.get<Category[]>('https://example.com/api/shop/categories.json', {params});
-
-        // This is for demonstration purposes only. Remove it and use the code above.
-        console.log(parent);
-        
+    getCategories(parent: Partial<Category>|null = null, depth: number = 0): Observable<Category[]> {        
         return this.http.get<Category[]>( `${URL}/categorias-plaza`)
         // return getShopCategoriesTree(parent ? parent.slug : null, depth);
     }

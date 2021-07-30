@@ -16,6 +16,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HeaderService } from '../../../../shared/services/header.service';
 import { fromMatchMedia } from '../../../../shared/functions/rxjs/fromMatchMedia';
 import { fromOutsideTouchClick } from '../../../../shared/functions/rxjs/fromOutsideTouchClick';
+import { ShopService } from 'src/app/shared/api/shop.service';
 
 @Component({
     selector: 'app-header-departments',
@@ -49,7 +50,35 @@ export class DepartmentsComponent implements OnInit, OnDestroy, AfterViewInit, A
         private el: ElementRef,
         private header: HeaderService,
         private zone: NgZone,
-    ) { }
+        private shop: ShopService
+    ) { 
+        this.shop.categoria.subscribe(resp => {
+            console.log(resp);     
+            
+            let temp = [{label: 'Power Tools', url: '/shop/catalog', menu: {
+                type: 'megamenu',
+                size: 'xl',
+                image: 'assets/images/megamenu/megamenu-1.jpg',
+                columns: [
+                    {size: 3, items: [
+                        {label: 'Power Tools', url: '/shop/catalog', items: [
+                            {label: 'Engravers', url: '/shop/catalog'},
+                            {label: 'Drills', url: '/shop/catalog'},
+                            {label: 'Wrenches', url: '/shop/catalog'},
+                            {label: 'Plumbing', url: '/shop/catalog'},
+                            {label: 'Wall Chaser', url: '/shop/catalog'},
+                            {label: 'Pneumatic Tools', url: '/shop/catalog'},
+                            {label: 'Milling Cutters', url: '/shop/catalog'}
+                        ]},
+                        {label: 'Workbenches', url: '/shop/catalog'},
+                        {label: 'Presses', url: '/shop/catalog'},
+                        {label: 'Spray Guns', url: '/shop/catalog'},
+                        {label: 'Riveters', url: '/shop/catalog'}
+                    ]}
+                ]
+            }}]
+        })
+    }
 
     ngOnInit(): void {
         const root = this.element.querySelector('.departments') as HTMLElement;

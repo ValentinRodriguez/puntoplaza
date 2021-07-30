@@ -354,9 +354,6 @@ function getCategoriesTree(categoriesType: 'shop'|'blog', parentSlug: string|nul
     let categories = [];
     const list = categoriesType === 'shop' ? shopCategoriesList : blogCategoriesList;
     const tree = categoriesType === 'shop' ? shopCategoriesTree : blogCategoriesTree;
-
-    console.log(list);
-    console.log(tree);
     
     if (parentSlug === null) {
         categories = tree.slice();

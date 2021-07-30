@@ -4,7 +4,7 @@
                 formControlName="category" (focus)="closeSuggestion()">
             <option value="all">All Categories</option>
             <option *ngFor="let category of categories" [value]="category.slug"
-                    [innerHTML]="getCategoryName(category)"
+                    [innerHTML]="category.descripcion | titlecase"
             ></option>
         </select>
         <input

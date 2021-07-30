@@ -2,6 +2,7 @@
 <div class="departments">
     <div class="departments__body" #bodyElement>
         <div class="departments__links-wrapper" (mouseleave)="onMouseLeave()">
+            
             <div class="departments__submenus-container" #containerElement>
                 <ng-container *ngFor="let item of items">
                     <div *ngIf="item.menu && item.menu.type == 'megamenu'"
@@ -10,21 +11,18 @@
                          #submenuElement>
                         <app-header-megamenu [menu]="item.menu" (itemClick)="onSubItemClick()"></app-header-megamenu>
                     </div>
-                    <!--suppress JSUnusedGlobalSymbols -->
-                    <div
-                        *ngIf="item.menu && item.menu.type == 'menu'"
-                        class="departments__submenu departments__submenu--type--menu"
-                        [ngClass]="{'departments__submenu--open': item === hoveredItem}"
-                        #submenuElement
-                    >
+
+                    <div *ngIf="item.menu && item.menu.type == 'menu'"
+                         class="departments__submenu departments__submenu--type--menu"
+                         [ngClass]="{'departments__submenu--open': item === hoveredItem}"
+                         #submenuElement>
                         <app-header-menu [items]="item.menu.items" (itemClick)="onSubItemClick()"></app-header-menu>
                     </div>
                 </ng-container>
             </div>
+
             <ul class="departments__links">
-                <li
-                    *ngFor="let item of items"
-                    class="departments__item"
+                <li *ngFor="let item of items" class="departments__item"
                     [ngClass]="{
                         'departments__item--menu': item.menu && item.menu.type == 'menu',
                         'departments__item--hover': item === hoveredItem

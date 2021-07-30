@@ -32,7 +32,7 @@ export type CategoryWithDepth = Category & {depth: number};
     styleUrls: ['./search.component.scss'],
     exportAs: 'search',
 })
-export class SearchComponent implements OnChanges, OnInit, OnDestroy {
+export class SearchComponent implements OnInit, OnDestroy {
     private destroy$: Subject<void> = new Subject<void>();
 
     form!: FormGroup;
@@ -77,19 +77,21 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
         private shop: ShopService,
         private cart: CartService,
         public root: RootService,
-    ) { }
+    ) { 
+        this.shop.categoria.subscribe((resp: any) => { 
+            this.categories = resp;             
+        })
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.location && this.location === 'header') {
-            this.shop.getCategories(null, 1).pipe(
-                takeUntil(this.destroy$),
-            ).subscribe((categories: any) => {
-                console.log(categories.data);                
-                // this.categories = this.getCategoriesWithDepth(categories)
-                // console.log(this.categories);            
-            });
-        }
+        
     }
+
+    // ngOnChanges(changes: SimpleChanges): void {        
+    //     if (changes.location && this.location === 'header') {
+
+    //     }else{
+            
+    //     }
+    // }
 
     ngOnInit(): void {
         this.form = this.fb.group({
@@ -181,13 +183,11 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
         });
     }
 
-    private getCategoriesWithDepth(categories: Category[], depth = 0): CategoryWithDepth[] {
-        // console.log(categories);
-        
-        return categories.reduce<CategoryWithDepth[]>((acc, category) => [
-            ...acc,
-            {...category, depth},
-            ...this.getCategoriesWithDepth(category.children || [], depth + 1),
-        ], []);
-    }
+    // private getCategoriesWithDepth(categories: Category[], depth = 0): CategoryWithDepth[] {        
+    //     return categories.reduce<CategoryWithDepth[]>((acc, category) => [
+    //         ...acc,
+    //         {...category, depth},
+    //         ...this.getCategoriesWithDepth(category.children || [], depth + 1),
+    //     ], []);
+    // }
 }
