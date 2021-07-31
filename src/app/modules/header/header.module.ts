@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // modules (angular)
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -38,7 +38,9 @@ import { TopbarComponent } from './components/topbar/topbar.component';
         CommonModule,
         RouterModule,
         // modules
-        SharedModule
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     exports: [
         // components

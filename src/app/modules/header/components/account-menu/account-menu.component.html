@@ -1,41 +1,44 @@
 <div class="account-menu">
-    <form class="account-menu__form">
-        <div class="account-menu__form-title">Log In to Your Account</div>
+    <form class="account-menu__form" *ngIf="!this.logado">
+        <div class="account-menu__form-title">Accede a tu cuenta</div>
         <div class="form-group">
-            <label for="header-signin-email" class="sr-only">Email address</label>
-            <input id="header-signin-email" type="email" class="form-control form-control-sm" placeholder="Email address">
+            <label for="header-signin-email" class="sr-only">Correo</label>
+            <input id="header-signin-email" type="email" name="email" class="form-control form-control-sm" placeholder="Email address" [(ngModel)]="this.form.email" required>
         </div>
         <div class="form-group">
-            <label for="header-signin-password" class="sr-only">Password</label>
+            <label for="header-signin-password" class="sr-only">Clave</label>
             <div class="account-menu__form-forgot">
-                <input id="header-signin-password" type="password" class="form-control form-control-sm" placeholder="Password">
-                <a href="" class="account-menu__form-forgot-link">Forgot?</a>
+                <input id="header-signin-password" type="password" name="password" class="form-control form-control-sm" placeholder="Password" [(ngModel)]="this.form.password" required>
+                
             </div>
         </div>
         <div class="form-group account-menu__form-button">
-            <button type="submit" class="btn btn-primary btn-sm">Login</button>
+            <button (click)="onSubmit()" type="button" class="btn btn-primary btn-sm">Acceder</button>
         </div>
         <div class="account-menu__form-link"><a routerLink="/account/login" (click)="closeMenu.emit()">Create An Account</a></div>
+        <div class="account-menu__form-link"><a routerLink="/account/login" (click)="closeMenu.emit()">Olvidaste tu contrasena</a></div>
     </form>
-    <div class="account-menu__divider"></div>
-    <a routerLink="/account/dashboard" class="account-menu__user" (click)="closeMenu.emit()">
-        <div class="account-menu__user-avatar">
-            <img src="assets/images/avatars/avatar-3.jpg" alt="">
-        </div>
-        <div class="account-menu__user-info">
-            <div class="account-menu__user-name">Helena Garcia</div>
-            <div class="account-menu__user-email">stroyka@example.com</div>
-        </div>
-    </a>
-    <div class="account-menu__divider"></div>
-    <ul class="account-menu__links">
-        <li><a routerLink="/account/profile" (click)="closeMenu.emit()">Edit Profile</a></li>
-        <li><a routerLink="/account/orders" (click)="closeMenu.emit()">Order History</a></li>
-        <li><a routerLink="/account/addresses" (click)="closeMenu.emit()">Addresses</a></li>
-        <li><a routerLink="/account/password" (click)="closeMenu.emit()">Password</a></li>
-    </ul>
-    <div class="account-menu__divider"></div>
-    <ul class="account-menu__links">
-        <li><a routerLink="/account/login" (click)="closeMenu.emit()">Logout</a></li>
-    </ul>
+    <ng-container *ngIf="this.logado">
+        <div class="account-menu__divider"></div>
+        <a routerLink="/account/dashboard" class="account-menu__user" (click)="closeMenu.emit()">
+            <div class="account-menu__user-avatar">
+                <img src="assets/images/avatars/avatar-3.jpg" alt="">
+            </div>
+            <div class="account-menu__user-info">
+                <div class="account-menu__user-name">Helena Garcia</div>
+                <div class="account-menu__user-email">stroyka@example.com</div>
+            </div>
+        </a>
+        <div class="account-menu__divider"></div>
+        <ul class="account-menu__links">
+            <li><a routerLink="/account/profile" (click)="closeMenu.emit()">Edit Profile</a></li>
+            <li><a routerLink="/account/orders" (click)="closeMenu.emit()">Order History</a></li>
+            <li><a routerLink="/account/addresses" (click)="closeMenu.emit()">Addresses</a></li>
+            <li><a routerLink="/account/password" (click)="closeMenu.emit()">Password</a></li>
+        </ul>
+        <div class="account-menu__divider"></div>
+        <ul class="account-menu__links">
+            <li><a (click)="logOut()">Logout</a></li>           
+        </ul>
+    </ng-container>
 </div>

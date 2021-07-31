@@ -72,7 +72,7 @@ export class MenuComponent implements AfterViewChecked {
         this.itemClick.emit(item);
     }
 
-    ngAfterViewChecked(): void {
+    ngAfterViewChecked(): void {        
         if (!this.reCalcSubmenuPosition) {
             return;
         }

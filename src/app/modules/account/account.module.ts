@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // modules (angular)
 import { CommonModule } from '@angular/common';
 
@@ -38,6 +38,8 @@ import { PageEditAddressComponent } from './pages/page-edit-address/page-edit-ad
         // modules (angular)
         CommonModule,
         // modules
+        FormsModule,
+        // ReactiveFormsModule,
         AccountRoutingModule,
         SharedModule
     ]

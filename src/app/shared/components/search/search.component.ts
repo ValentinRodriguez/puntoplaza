@@ -78,11 +78,9 @@ export class SearchComponent implements OnInit, OnDestroy {
         private cart: CartService,
         public root: RootService,
     ) { 
-        this.shop.categoria.subscribe((resp: any) => { 
-            this.categories = resp;             
-        })
-
-        
+        this.shop.categoria.subscribe((resp: any) => {
+            this.categories = resp;
+        });
     }
 
     // ngOnChanges(changes: SimpleChanges): void {        

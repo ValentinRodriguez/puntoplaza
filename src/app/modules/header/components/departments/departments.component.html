@@ -32,7 +32,7 @@
                 >
 
                     <ng-template #link>
-                        {{ item.label }}
+                        {{ item.label | titlecase}}
                         <app-icon *ngIf="item.menu" class="departments__item-arrow" name="arrow-rounded-right-6x9" size="6x9"></app-icon>
                     </ng-template>
 

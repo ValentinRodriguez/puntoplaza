@@ -31,13 +31,12 @@ export class DepartmentsComponent implements OnInit, OnDestroy, AfterViewInit, A
     @ViewChildren('submenuElement') submenuElements!: QueryList<ElementRef>;
     @ViewChildren('itemElement') itemElements!: QueryList<ElementRef>;
 
-    items: NavigationLink[] = departments;
+    items: NavigationLink[] = [];
     hoveredItem: NavigationLink|null = null;
 
     isOpen = false;
     fixed = false;
     fixedHeight: number|null = null;
-
     reCalcSubmenuPosition = false;
 
     private get element(): HTMLElement {
@@ -53,34 +52,40 @@ export class DepartmentsComponent implements OnInit, OnDestroy, AfterViewInit, A
         private shop: ShopService
     ) { 
         this.shop.categoria.subscribe(resp => {
-            console.log(resp);     
+            let temp2: any[] = [];
             
-            let temp = [{label: 'Power Tools', url: '/shop/catalog', menu: {
-                type: 'megamenu',
-                size: 'xl',
-                image: 'assets/images/megamenu/megamenu-1.jpg',
-                columns: [
-                    {size: 3, items: [
-                        {label: 'Power Tools', url: '/shop/catalog', items: [
-                            {label: 'Engravers', url: '/shop/catalog'},
-                            {label: 'Drills', url: '/shop/catalog'},
-                            {label: 'Wrenches', url: '/shop/catalog'},
-                            {label: 'Plumbing', url: '/shop/catalog'},
-                            {label: 'Wall Chaser', url: '/shop/catalog'},
-                            {label: 'Pneumatic Tools', url: '/shop/catalog'},
-                            {label: 'Milling Cutters', url: '/shop/catalog'}
-                        ]},
-                        {label: 'Workbenches', url: '/shop/catalog'},
-                        {label: 'Presses', url: '/shop/catalog'},
-                        {label: 'Spray Guns', url: '/shop/catalog'},
-                        {label: 'Riveters', url: '/shop/catalog'}
-                    ]}
-                ]
-            }}]
+            resp.forEach((element: any) => {                
+               let dato = {
+                    label: element.descripcion, url: element.url,
+                    menu: {
+                        type: 'megamenu',
+                        size: 'xl',
+                        image: element.image,
+                        columns: this.crearhijos(element.children)
+                    }
+                }                
+                temp2.push(dato)
+            });
+            this.items = temp2
         })
     }
 
-    ngOnInit(): void {
+    crearhijos(element: any) {
+        const temp: any = [];        
+        element.forEach((subelement: any) => {            
+            let obj = {size: 3, items: [
+                {
+                    label: subelement.descripcion,
+                    url: subelement.url,
+                    items: subelement.children
+                }]
+            }
+            temp.push(obj)
+        });        
+        return temp
+    }
+
+    ngOnInit(): void {        
         const root = this.element.querySelector('.departments') as HTMLElement;
         const content = this.element.querySelector('.departments__links-wrapper') as HTMLElement;
 

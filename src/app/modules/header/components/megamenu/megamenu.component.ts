@@ -13,4 +13,9 @@ export class MegamenuComponent {
     @Output() itemClick: EventEmitter<NestedLink> = new EventEmitter<NestedLink>();
 
     constructor() { }
+
+    test(subItem: any) {
+        console.log(subItem);
+        
+    }
 }
