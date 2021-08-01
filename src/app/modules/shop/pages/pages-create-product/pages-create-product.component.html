@@ -13,17 +13,17 @@
 
                 <div class="form-group col-md-3">
                     <label for="inputState">Tipo</label>
-                    <select id="inputState" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
+                    <select id="inputState" class="form-control">                        
+                        <option value="fisico">Físico</option>
+                        <option value="digital">Dígital</option>
+                        <option value="servicio">Servicio</option>
                     </select>
                 </div>
 
                 <div class="form-group col-md-3">
                     <label for="inputState">Categoría</label>
                     <select id="inputState" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
+                        <option *ngFor="let item of categorias" value="{{item.id}}">{{getCategoryName(item)}}</option>
                     </select>
                 </div>
                 
@@ -33,14 +33,15 @@
                 </div>
 
                 <div class="form-group col-md-3">
-                    <label for="inputAddress">Precio Oferta <a href="#" class="sale_schedule">Programar</a></label>
+                    <!--  <a href="#" class="sale_schedule">Programar</a> -->
+                    <label for="inputAddress">Precio Oferta</label>
                     <input type="text" class="form-control" id="inputAddress">
                 </div>
 
-                <div class="form-group col-md-3">
+                <!-- <div class="form-group col-md-3">
                     <label for="inputAddress">Etiquetas</label>
                     <input type="text" class="form-control" id="inputAddress">
-                </div>
+                </div> -->
             </div>
 
             <div class="form-group">

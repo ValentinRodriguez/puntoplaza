@@ -17,6 +17,7 @@ import { HeaderService } from '../../../../shared/services/header.service';
 import { fromMatchMedia } from '../../../../shared/functions/rxjs/fromMatchMedia';
 import { fromOutsideTouchClick } from '../../../../shared/functions/rxjs/fromOutsideTouchClick';
 import { ShopService } from 'src/app/shared/api/shop.service';
+import { CategoriasService } from 'src/app/shared/services/inventario/categorias.service';
 
 @Component({
     selector: 'app-header-departments',
@@ -49,12 +50,14 @@ export class DepartmentsComponent implements OnInit, OnDestroy, AfterViewInit, A
         private el: ElementRef,
         private header: HeaderService,
         private zone: NgZone,
-        private shop: ShopService
+        private shop: ShopService,
+        private categorias: CategoriasService
     ) { 
-        this.shop.categoria.subscribe(resp => {
+        this.categorias.getDatos().subscribe((resp: any) => {
             let temp2: any[] = [];
+            console.log(resp);
             
-            resp.forEach((element: any) => {                
+            resp.data.forEach((element: any) => {                
                let dato = {
                     label: element.descripcion, url: element.url,
                     menu: {

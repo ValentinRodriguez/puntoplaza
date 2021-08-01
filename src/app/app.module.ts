@@ -22,6 +22,9 @@ import { MobileModule } from './modules/mobile/mobile.module';
 import { SharedModule } from './shared/shared.module';
 import { WidgetsModule } from './modules/widgets/widgets.module';
 
+
+import { InventarioModule } from './shared/services/inventario/inventario.module';
+
 // components
 import { AppComponent } from './app.component';
 import { RootComponent } from './components/root/root.component';
@@ -31,6 +34,7 @@ import { PageHomeOneComponent } from './pages/page-home-one/page-home-one.compon
 import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PageOffcanvasCartComponent } from './pages/page-offcanvas-cart/page-offcanvas-cart.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -46,6 +50,7 @@ import { PageOffcanvasCartComponent } from './pages/page-offcanvas-cart/page-off
     ],
     imports: [
         // modules (angular)
+        // HttpClientModule
         BrowserModule.withServerTransition({ appId: 'serverApp' }),
         BrowserAnimationsModule,
         ReactiveFormsModule,
@@ -60,7 +65,8 @@ import { PageOffcanvasCartComponent } from './pages/page-offcanvas-cart/page-off
         HeaderModule,
         MobileModule,
         SharedModule,
-        WidgetsModule
+        WidgetsModule,
+        InventarioModule,
     ],
     providers: [
         // { provide: LOCALE_ID, useValue: 'it' }
