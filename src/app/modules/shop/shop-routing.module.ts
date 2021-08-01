@@ -12,6 +12,7 @@ import { ProductsListResolverService } from './resolvers/products-list-resolver.
 import { CategoryResolverService } from './resolvers/category-resolver.service';
 import { ProductResolverService } from './resolvers/product-resolver.service';
 import { PageOrderSuccessComponent } from './pages/page-order-success/page-order-success.component';
+import { PagesCreateProductComponent } from './pages/pages-create-product/pages-create-product.component';
 
 const categoryPageData: Data = {
     // Number of products per row. Possible values: 3, 4, 5.
@@ -61,6 +62,11 @@ const routes: Routes = [
         path: 'cart',
         pathMatch: 'full',
         component: PageCartComponent
+    },
+    {
+        path: 'publicar',
+        pathMatch: 'full',
+        component: PagesCreateProductComponent
     },
     {
         path: 'cart/checkout',

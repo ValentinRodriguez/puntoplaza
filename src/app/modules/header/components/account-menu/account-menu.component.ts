@@ -14,6 +14,7 @@ export class AccountMenuComponent implements OnInit {
         password: null
     };
     logado = false;
+    enviando = false
 
     constructor(private usuarioServ: UsersService) { }
 
@@ -28,8 +29,10 @@ export class AccountMenuComponent implements OnInit {
         })        
     }
 
-    onSubmit() {        
+    onSubmit() {
+        this.enviando = true;
         this.usuarioServ.login(this.form).subscribe((resp: any) => {
+            this.enviando = false;
           if (resp) {       
             this.handleResponse(resp)
           } else {        

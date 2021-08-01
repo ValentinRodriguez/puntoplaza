@@ -106,6 +106,6 @@ export const navigation: NavigationLink[] = [
             {label: 'Components',           url: '/site/components'},
             {label: 'Typography',           url: '/site/typography'}
         ]
-    }},
-    {label: 'Buy Theme', url: 'https://themeforest.net/item/stroyka-tools-store-angular-7-template/23523630', external: true}
+    }}
+    // {label: 'Publicar', url: '/shop/publicar', external: false}
 ];
