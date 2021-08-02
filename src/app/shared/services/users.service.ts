@@ -14,6 +14,10 @@ export class UsersService {
     return this.http.post(`${URL}/login`, forma)  
   }
 
+  register(data: any) {
+    return this.http.post(`${URL}/signup`, data)
+  }
+
   logout(email: any) {
     return this.http.post(`${URL}/logout`, email)
   }

@@ -15,7 +15,13 @@ export class PagesCreateProductComponent implements OnInit {
   ngOnInit(): void {
     this.categoriasServ.getDatos().subscribe((resp: any) => {
       if (resp.code === 200) {
-        this.categorias = resp.data;        
+        this.categorias = resp.data;
+        let temp = this.categorias.reduce((acc, category) => [
+                  ...acc,
+                  {...category.children}
+        ], []);
+        console.log(temp);
+        
       }
     })
   }
@@ -23,7 +29,4 @@ export class PagesCreateProductComponent implements OnInit {
   getCategoryName(category: any): string {
     return '&nbsp;'.repeat(category.depth * 2) + category.descripcion;
   }
-
-
-
 }

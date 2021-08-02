@@ -7,10 +7,25 @@ import { UsersService } from "../../../../shared/services/users.service";
     styleUrls: ['./page-login.component.scss']
 })
 export class PageLoginComponent {
-    form = {
+  form = {
         email: 'valentinrodriguez1427@gmail.com',
         password: null
-    };
+  };
+  
+  form2 = {
+    email: 'valentinrodriguez1428@gmail.com',
+    password: '123',
+    username: 'v',            
+    name: 'v',                 
+    surname: 'v',               
+    is_vend: 'v',                
+    password_confirmation: '123',
+    foto: '',                 
+    impresora: '',
+    tipo: 'store',
+    estado: 'activo',               
+  };
+
     constructor(private usuarioServ: UsersService) { }
 
     onSubmit() {
@@ -23,8 +38,15 @@ export class PageLoginComponent {
             this.showErrorViaMessages();
           }   
         });
-      }
+    }
     
+    onRegister() {
+      console.log(this.form2);
+      this.usuarioServ.register(this.form2).subscribe((resp: any) => {
+        console.log(resp);        
+      })
+    }
+  
     handleResponse(data: any) {
         console.log(data);          
         // this.router.navigateByUrl('/');     
