@@ -39,7 +39,7 @@ import { PageEditAddressComponent } from './pages/page-edit-address/page-edit-ad
         CommonModule,
         // modules
         FormsModule,
-        // ReactiveFormsModule,
+        ReactiveFormsModule,
         AccountRoutingModule,
         SharedModule
     ]
