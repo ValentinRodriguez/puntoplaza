@@ -9,51 +9,25 @@ import { PageProfileComponent } from './pages/page-profile/page-profile.componen
 import { PagePasswordComponent } from './pages/page-password/page-password.component';
 import { PageOrderDetailsComponent } from './pages/page-order-details/page-order-details.component';
 import { PageEditAddressComponent } from './pages/page-edit-address/page-edit-address.component';
+import { PagesRegisterComponent } from './pages/pages-register/pages-register.component';
 
 const routes: Routes = [
     {
         path: '',
         component: LayoutComponent,
         children: [
-            {
-                path: '',
-                pathMatch: 'full',
-                redirectTo: 'dashboard'
-            },
-            {
-                path: 'dashboard',
-                component: PageDashboardComponent
-            },
-            {
-                path: 'profile',
-                component: PageProfileComponent
-            },
-            {
-                path: 'addresses',
-                component: PageAddressesListComponent
-            },
-            {
-                path: 'addresses/:addressId',
-                component: PageEditAddressComponent
-            },
-            {
-                path: 'orders',
-                component: PageOrdersListComponent
-            },
-            {
-                path: 'orders/:orderId',
-                component: PageOrderDetailsComponent
-            },
-            {
-                path: 'password',
-                component: PagePasswordComponent
-            }
+            {path: '',pathMatch: 'full',redirectTo: 'dashboard'},
+            {path: 'dashboard',component: PageDashboardComponent},
+            {path: 'profile',component: PageProfileComponent},
+            {path: 'addresses',component: PageAddressesListComponent},
+            {path: 'addresses/:addressId',component: PageEditAddressComponent},
+            {path: 'orders',component: PageOrdersListComponent},
+            {path: 'orders/:orderId',component: PageOrderDetailsComponent},
+            {path: 'password',component: PagePasswordComponent}
         ]
     },
-    {
-        path: 'login',
-        component: PageLoginComponent
-    }
+    {path: 'login',component: PageLoginComponent},
+    {path: 'register',component: PagesRegisterComponent}
 ];
 
 @NgModule({

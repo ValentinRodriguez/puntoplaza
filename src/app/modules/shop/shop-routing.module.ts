@@ -13,6 +13,7 @@ import { CategoryResolverService } from './resolvers/category-resolver.service';
 import { ProductResolverService } from './resolvers/product-resolver.service';
 import { PageOrderSuccessComponent } from './pages/page-order-success/page-order-success.component';
 import { PagesCreateProductComponent } from './pages/pages-create-product/pages-create-product.component';
+import { LoginGuard } from './guards/login.guard';
 
 const categoryPageData: Data = {
     // Number of products per row. Possible values: 3, 4, 5.
@@ -31,21 +32,12 @@ const categoryPageResolvers: ResolveData = {
 };
 
 const routes: Routes = [
-    {
-        path: 'catalog',
-        component: PageCategoryComponent,
-        data: categoryPageData,
-        resolve: categoryPageResolvers,
+    {path: 'catalog',component: PageCategoryComponent,
+     data: categoryPageData,resolve: categoryPageResolvers,
     },
-    {
-        path: 'catalog/:categorySlug',
-        component: PageCategoryComponent,
-        data: categoryPageData,
-        resolve: categoryPageResolvers,
-    },
-    {
-        path: 'products/:productSlug',
-        component: PageProductComponent,
+    {path: 'catalog/:categorySlug',component: PageCategoryComponent,
+     data: categoryPageData,resolve: categoryPageResolvers,},
+    {path: 'products/:productSlug',component: PageProductComponent,
         data: {
             // Product page layout. Possible values: 'standard', 'columnar', 'sidebar'.
             layout: 'standard',
@@ -58,37 +50,13 @@ const routes: Routes = [
             product: ProductResolverService
         },
     },
-    {
-        path: 'cart',
-        pathMatch: 'full',
-        component: PageCartComponent
-    },
-    {
-        path: 'publicar',
-        pathMatch: 'full',
-        component: PagesCreateProductComponent
-    },
-    {
-        path: 'cart/checkout',
-        component: PageCheckoutComponent,
-        canActivate: [CheckoutGuard],
-    },
-    {
-        path: 'cart/checkout/success',
-        component: PageOrderSuccessComponent,
-    },
-    {
-        path: 'wishlist',
-        component: PageWishlistComponent
-    },
-    {
-        path: 'compare',
-        component: PageCompareComponent
-    },
-    {
-        path: 'track-order',
-        component: PageTrackOrderComponent
-    },
+    {path: 'cart',pathMatch: 'full',component: PageCartComponent},
+    {path: 'publicar',pathMatch: 'full',component: PagesCreateProductComponent,canActivate: [LoginGuard]},
+    {path: 'cart/checkout',component: PageCheckoutComponent,canActivate: [CheckoutGuard]},
+    {path: 'cart/checkout/success',component: PageOrderSuccessComponent},
+    {path: 'wishlist',component: PageWishlistComponent},
+    {path: 'compare',component: PageCompareComponent},
+    {path: 'track-order',component: PageTrackOrderComponent    },
 
     // --- START ---
     // The following routes are only needed to demonstrate possible layouts of some pages. You can delete them.

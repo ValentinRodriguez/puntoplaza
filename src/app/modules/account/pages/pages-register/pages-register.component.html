@@ -1,0 +1,77 @@
+<app-page-header [breadcrumbs]="[
+    {label: 'Home',       url: '/'},
+    {label: 'registro', url: ''}
+]"></app-page-header>
+
+<div class="block">
+    <div class="container d-flex justify-content-center">
+        <div class="col-md-6  mt-4 mt-md-0">
+            <div class="card flex-grow-1 mb-0">
+                <div class="card-body">
+                    <h3 class="card-title">Registrate</h3>
+                    <form (ngSubmit)="onRegister()" [formGroup]="forma">
+                        <div class="form-group">
+                            <label>Email (correo)</label>
+                            <input name="email" type="email" class="form-control" formControlName="email" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input name="password" type="password" class="form-control" formControlName="password" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label>Repeat Password</label>
+                            <input name="password2" type="password" class="form-control" formControlName="password_confirmation" placeholder="Password">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="is_vend" class="form-check-input" type="radio" id="inlineRadio1" 
+                                   value="v" checked formControlName="is_vend">
+                            <label class="form-check-label" for="inlineRadio1">Vendedor</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="is_vend" class="form-check-input" type="radio" id="inlineRadio2" 
+                                   value="c" formControlName="is_vend">
+                            <label class="form-check-label" for="inlineRadio2">Comprador</label>
+                        </div>
+                         <br> 
+                        <div *ngIf="this.tipo.value === 'v'" class="form-group" style="margin-top: 20px">
+                            <div class="form-group">
+                                <label>Nombre de la tienda</label>
+                                <input name="text" type="text" formControlName="nombre_tienda" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefono</label>
+                                <input name="text" type="text" class="form-control" formControlName="telefono">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Documento</label>
+                                <select class="form-control" (change)="tipoDoc($event)" formControlName="tipo_documento">
+                                    <option *ngFor="let item of documentos" [value]="item.id" [selected]="item.id === 2">{{item.descripcion | titlecase}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" *ngIf="cedula">
+                                <label>Cédula</label>
+                                <input name="text" type="text" class="form-control" formControlName="documento">
+                            </div>
+
+                            <div class="form-group" *ngIf="rnc">
+                                <label>RNC</label>
+                                <input name="text" type="text" class="form-control" formControlName="documento">
+                            </div>
+
+                            <div class="form-group" *ngIf="pasaporte">
+                                <label>Pasaporte</label>
+                                <input name="text" type="text" class="form-control" formControlName="documento">
+                            </div>
+                            <div class="form-group">
+                                <label>Dirección</label>
+                                <input name="text" type="text" class="form-control" formControlName="direccion">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2 mt-md-3 mt-lg-4">Registrate</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

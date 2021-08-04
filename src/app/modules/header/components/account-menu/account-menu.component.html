@@ -17,7 +17,7 @@
             <button *ngIf="this.enviando" class="btn-sm btn-primary btn-loading"></button>{{ ' ' }}
 
         </div>
-        <div class="account-menu__form-link"><a routerLink="/account/login" (click)="closeMenu.emit()">Create An Account</a></div>
+        <div class="account-menu__form-link"><a routerLink="/account/register" (click)="closeMenu.emit()">Registrate!</a></div>
         <div class="account-menu__form-link"><a routerLink="/account/login" (click)="closeMenu.emit()">Olvidaste tu contrasena</a></div>
     </form>
     <ng-container *ngIf="this.logado">
@@ -40,7 +40,10 @@
         </ul>
         <div class="account-menu__divider"></div>
         <ul class="account-menu__links">
-            <li><a (click)="logOut()">Logout</a></li>           
+            <li style="cursor: pointer;">
+                <a (click)="logOut()">Salir <i class="fas fa-power-off" style="color: rgb(223, 66, 66);"></i>
+                </a>
+            </li>           
         </ul>
     </ng-container>
 </div>

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { UsersService } from 'src/app/shared/services/users.service';
 
 @Component({
@@ -13,20 +14,19 @@ export class AccountMenuComponent implements OnInit {
         email: null,
         password: null
     };
+
     logado = false;
     enviando = false
 
-    constructor(private usuarioServ: UsersService) { }
+    constructor(private usuarioServ: UsersService,
+                private router: Router) { }
 
     ngOnInit() {
         this.usuarioServ.usuarioLogado.subscribe((resp: boolean) => {
             this.logado = resp;
         })
-        this.usuarioServ.isLogged().then((resp: boolean) => {
-            this.logado = resp
-            console.log(resp);
-            
-        })        
+        this.logado = this.usuarioServ.loggedIn();
+        console.log(this.logado);
     }
 
     onSubmit() {
@@ -46,10 +46,12 @@ export class AccountMenuComponent implements OnInit {
             if (resp['code'] === 200) {
                 this.usuarioServ.unSetDataLocalStorage().then(() => {
                     this.closeMenu.emit();
+                    this.router.navigateByUrl('/')
                 })
             }
         })
     }
+    
     handleResponse(data: any) {
         console.log(data);          
         // this.router.navigateByUrl('/');     
