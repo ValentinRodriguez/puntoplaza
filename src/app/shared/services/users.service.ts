@@ -31,6 +31,15 @@ export class UsersService {
     this.setDataLocalStorage(data);    
   }
 
+  async getUserLogged() {
+    let user = await JSON.parse(localStorage.getItem('user') || '{}');
+    if (user !== null) {
+      return user;      
+    }else{
+      return {};
+    }
+  }
+
   loggedIn() {
     return this.validateToken()
   }

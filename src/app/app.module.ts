@@ -23,7 +23,7 @@ import { SharedModule } from './shared/shared.module';
 import { WidgetsModule } from './modules/widgets/widgets.module';
 
 
-import { InventarioModule } from './shared/services/inventario/inventario.module';
+// import { InventarioModule } from './shared/services/inventario/inventario.module';
 
 // components
 import { AppComponent } from './app.component';
@@ -66,7 +66,7 @@ import { HttpClientModule } from '@angular/common/http';
         MobileModule,
         SharedModule,
         WidgetsModule,
-        InventarioModule,
+        // InventarioModule,
     ],
     providers: [
         // { provide: LOCALE_ID, useValue: 'it' }
