@@ -8,12 +8,12 @@ export class UiMessagesService {
 
   constructor() { }
 
-  uiMessageAutoClose() {
+  uiMessageAutoClose(titulo: string, sub: string) {
     let timerInterval: any;
-    Swal.fire({
-      title: 'Auto close alert!',
-      html: 'I will close in <b></b> milliseconds.',
-      timer: 5000,
+    const ref = Swal.fire({
+      title: titulo,
+      html: sub,
+      //timer: 5000,
       timerProgressBar: true,
       didOpen: () => {
         Swal.showLoading()
@@ -25,11 +25,25 @@ export class UiMessagesService {
       willClose: () => {
         clearInterval(timerInterval)
       }
-    }).then((result) => {
-      /* Read more about handling dismissals below */
-      if (result.dismiss === Swal.DismissReason.timer) {
-        console.log('I was closed by the timer')
-      }
+    })
+    return ref;
+  }
+  uiMessageError(text: string, title:string, footer?: string) {
+    Swal.fire({
+      icon: 'error',
+      title,
+      text,
+      footer
+    })
+  }
+
+  successMessage(title: string, timer: number) {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title,
+      showConfirmButton: false,
+      timer
     })
   }
 }

@@ -31,8 +31,8 @@ export class UsersService {
     this.setDataLocalStorage(data);    
   }
 
-  async getUserLogged() {
-    let user = await JSON.parse(localStorage.getItem('user') || '{}');
+  getUserLogged() {
+    let user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user !== null) {
       return user;      
     }else{
@@ -41,7 +41,8 @@ export class UsersService {
   }
 
   loggedIn() {
-    return this.validateToken()
+    return false;
+    // return this.validateToken()
   }
 
   validateToken() {

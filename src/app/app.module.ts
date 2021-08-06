@@ -34,7 +34,8 @@ import { PageHomeOneComponent } from './pages/page-home-one/page-home-one.compon
 import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PageOffcanvasCartComponent } from './pages/page-offcanvas-cart/page-offcanvas-cart.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptorService } from './shared/services/interceptors/error-interceptor.service';
 
 
 @NgModule({
@@ -70,6 +71,10 @@ import { HttpClientModule } from '@angular/common/http';
     ],
     providers: [
         // { provide: LOCALE_ID, useValue: 'it' }
+        {   provide: HTTP_INTERCEPTORS,
+            useClass: ErrorInterceptorService,
+            multi: true,
+        },
     ],
     bootstrap: [AppComponent]
 })

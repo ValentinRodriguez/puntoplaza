@@ -18,16 +18,15 @@ export class PagesRegisterComponent implements OnInit {
   rnc = false;
   pasaporte = false;
   usuario: any;
+  message: any;
   
   constructor(private usuarioServ: UsersService,
               private tiendasServ: TiendaService,
               private ClientesServ: ClientesService,
               private uiMessage: UiMessagesService,
               private fb: FormBuilder) {    
-                this.usuarioServ.getUserLogged().then(resp => {
-                  this.usuario = resp
-                  this.crearFormulario();
-                })
+                this.usuario = this.usuarioServ.getUserLogged()
+                this.crearFormulario();
             }
 
   get email() {   
@@ -62,12 +61,10 @@ export class PagesRegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uiMessage.uiMessageAutoClose()
     this.ClientesServ.getDocumentos().subscribe((resp: any) => {
       this.documentos = resp.data;      
       this.forma.get('tipo_documento')?.setValue(2);
     })
-
     this.setValidation();
   }
 
@@ -119,66 +116,76 @@ export class PagesRegisterComponent implements OnInit {
       console.log(this.forma.invalid);       
     })
   }
+
   onRegister() {
     const arr = this.email.value.split('@');
     this.forma.get('username')?.setValue(arr[0]);
+    this.forma.get('name')?.setValue(arr[0]);
+    this.forma.get('surname')?.setValue(arr[0]);
     if (this.forma.invalid) {
-      // this.uiMessage.getMiniInfortiveMsg('tst','error','ERROR','Debe completar los campos que son obligatorios.');
       Object.values(this.forma.controls).forEach(control =>{          
         control.markAllAsTouched();
       }); 
     } else {
-      this.usuarioServ.register(this.forma.value).subscribe((resp: any) => {
-        console.log(resp);      
-        if (resp.code === 200) {
-          if (this.tipo.value === 'v') {
-            const obj = {
-              nombre:            this.forma.get('nombre_tienda')?.value,
-              telefono_empresa:  this.forma.get('telefono')?.value,
-              email_empresa:     this.forma.get('email')?.value,
-              documento:         this.forma.get('documento')?.value || 'xxx-xxxxxxx-x',
-              tipo_documento:    '1',
-              id_pais:           '1',
-              id_region:         '7',
-              id_provincia:      '19',
-              id_municipio:      '69',
-              id_ciudad:         '69',
-              calle:             this.forma.get('direccion')?.value,
-              web:               '',
-              contacto:          this.forma.get('surname')?.value,
-              telefono_contacto: this.forma.get('telefono')?.value,
-              moneda:            '1',
-              empresa_verde:     'si',
-              tipo_cuadre:       'm',
-              valuacion_inv:     'standard',
-              tipo_empresa:      'D',
-              logo:              '',
-              estado:            'activo',
-              usuario_creador:   'movilsoluciones' 
+      this.message = this.uiMessage.uiMessageAutoClose('Registrando usuario', '')
+      setTimeout(() => {
+        this.usuarioServ.register(this.forma.value).subscribe((resp: any) => {
+          console.log(resp);
+          this.message.close();
+          if (resp.code === 200) {
+            // this.handleResponse(resp.data);            
+            if (this.tipo.value === 'v') {
+              this.crearTienda();
+            } else {
+              this.uiMessage.successMessage('Proceso completado.', 1500);              
             }
-            
-            this.tiendasServ.crearTienda(obj).subscribe((resp: any) => {
-              console.log(resp);
-              // if (resp.code === 200) {
-              //   this.handleResponse(resp.data);            
-              // } else {
-              //   this.showErrorViaMessages()
-              // }
-            })          
-          } else {
-            
-          }
-        } else {
-          this.showErrorViaMessages()
-        }        
-      });
+          }       
+        });        
+      }, 3000);
     }
+  }
+
+  crearTienda() {
+    const obj = {
+      nombre:            this.forma.get('nombre_tienda')?.value,
+      telefono_empresa:  this.forma.get('telefono')?.value,
+      email_empresa:     this.forma.get('email')?.value,
+      documento:         this.forma.get('documento')?.value || 'xxx-xxxxxxx-x',
+      tipo_documento:    '1',
+      id_pais:           '1',
+      id_region:         '7',
+      id_provincia:      '19',
+      id_municipio:      '69',
+      id_ciudad:         '69',
+      calle:             this.forma.get('direccion')?.value,
+      web:               '',
+      contacto:          this.forma.get('surname')?.value,
+      telefono_contacto: this.forma.get('telefono')?.value,
+      moneda:            '1',
+      empresa_verde:     'si',
+      tipo_cuadre:       'm',
+      valuacion_inv:     'standard',
+      tipo_empresa:      'D',
+      logo:              '',
+      estado:            'activo',
+      usuario_creador:   'movilsoluciones' 
+    }
+    this.message = this.uiMessage.uiMessageAutoClose('Creando tu tienda...', '')
+    setTimeout(() => {
+      this.tiendasServ.crearTienda(obj).subscribe((resp: any) => {
+        console.log(resp);
+        this.message.close();
+        if (resp.code === 200) {
+          this.uiMessage.successMessage('Proceso completado.', 1500);
+        }
+      })
+    }, 3000);
   }
 
   handleResponse(data: any) {
     console.log(data);          
     // this.router.navigateByUrl('/');     
-    //this.usuarioServ.handleToken(data);
+    this.usuarioServ.handleToken(data);
   }
 
   showErrorViaMessages() {
