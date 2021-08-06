@@ -12,64 +12,87 @@
                     <form (ngSubmit)="onRegister()" [formGroup]="forma">
                         <div class="form-group">
                             <label>Email (correo)</label>
-                            <input name="email" type="email" class="form-control" formControlName="email" placeholder="Enter email">
+                            <input name="email" type="email" class="form-control is-invalid" formControlName="email" 
+                                   [class.is-invalid]="getNoValido('email')">
+                            <div class="invalid-feedback" *ngIf="getNoValido('email')">Este campo es requerido</div>
                         </div>
                         <div class="form-group">
-                            <label>Password</label>
-                            <input name="password" type="password" class="form-control" formControlName="password" placeholder="Password">
+                            <label>Contraseña</label>
+                            <input name="password" type="password" class="form-control" formControlName="password" 
+                                   [class.is-invalid]="getNoValido('password')">
+                            <div class="invalid-feedback" *ngIf="getNoValido('password')">Este campo es requerido</div>
                         </div>
                         <div class="form-group">
-                            <label>Repeat Password</label>
-                            <input name="password2" type="password" class="form-control" formControlName="password_confirmation" placeholder="Password">
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input name="is_vend" class="form-check-input" type="radio" id="inlineRadio1" 
-                                   value="v" checked formControlName="is_vend">
-                            <label class="form-check-label" for="inlineRadio1">Vendedor</label>
+                            <label>Repetir Contraseña</label>
+                            <input name="password2" type="password" class="form-control" formControlName="password_confirmation" 
+                                   [class.is-invalid]="getNoValido('password_confirmation')">
+                            <div class="invalid-feedback" *ngIf="getNoValido('password_confirmation')">Este campo es requerido</div>
                         </div>
                         <div class="form-check form-check-inline">
                             <input name="is_vend" class="form-check-input" type="radio" id="inlineRadio2" 
                                    value="c" formControlName="is_vend">
                             <label class="form-check-label" for="inlineRadio2">Comprador</label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            <input name="is_vend" class="form-check-input" type="radio" id="inlineRadio1" 
+                                   value="v" checked formControlName="is_vend">
+                            <label class="form-check-label" for="inlineRadio1">Vendedor</label>
+                        </div>
                          <br> 
                         <div *ngIf="this.tipo.value === 'v'" class="form-group" style="margin-top: 20px">
                             <div class="form-group">
                                 <label>Nombre de la tienda</label>
-                                <input name="text" type="text" formControlName="nombre_tienda" class="form-control">
+                                <input name="text" type="text" formControlName="nombre_tienda" class="form-control" 
+                                       [class.is-invalid]="getNoValido('nombre_tienda')">
+                                <div class="invalid-feedback" *ngIf="getNoValido('nombre_tienda')">Este campo es requerido</div>
                             </div>
                             <div class="form-group">
                                 <label>Telefono</label>
-                                <input name="text" type="text" class="form-control" formControlName="telefono">
+                                <input name="text" type="text" class="form-control" formControlName="telefono" 
+                                      [class.is-invalid]="getNoValido('telefono')">
+                                <div class="invalid-feedback" *ngIf="getNoValido('telefono')">Este campo es requerido</div>
                             </div>
                             <div class="form-group">
                                 <label>Tipo de Documento</label>
-                                <select class="form-control" (change)="tipoDoc($event)" formControlName="tipo_documento">
-                                    <option *ngFor="let item of documentos" [value]="item.id" [selected]="item.id === 2">{{item.descripcion | titlecase}}</option>
+                                <select class="form-control" (change)="tipoDoc($event)" formControlName="tipo_documento" 
+                                        [class.is-invalid]="getNoValido('tipo_documento')">
+                                    <option *ngFor="let item of documentos" [value]="item.id" [selected]="item.id === 2">
+                                        {{item.descripcion | titlecase}}
+                                    </option>
                                 </select>
+                                <div class="invalid-feedback" *ngIf="getNoValido('documento')">Este campo es requerido</div>
                             </div>
 
                             <div class="form-group" *ngIf="cedula">
                                 <label>Cédula</label>
-                                <input name="text" type="text" class="form-control" formControlName="documento">
+                                <input name="text" type="text" class="form-control" formControlName="documento" 
+                                       [class.is-invalid]="getNoValido('documento')">
+                                <div class="invalid-feedback" *ngIf="getNoValido('documento')">Este campo es requerido</div>
                             </div>
 
                             <div class="form-group" *ngIf="rnc">
                                 <label>RNC</label>
-                                <input name="text" type="text" class="form-control" formControlName="documento">
+                                <input name="text" type="text" class="form-control" formControlName="documento" 
+                                       [class.is-invalid]="getNoValido('documento')">
+                                <div class="invalid-feedback" *ngIf="getNoValido('documento')">Este campo es requerido</div>
                             </div>
 
                             <div class="form-group" *ngIf="pasaporte">
                                 <label>Pasaporte</label>
-                                <input name="text" type="text" class="form-control" formControlName="documento">
+                                <input name="text" type="text" class="form-control" formControlName="documento" 
+                                       [class.is-invalid]="getNoValido('documento')">
+                                <div class="invalid-feedback" *ngIf="getNoValido('documento')">Este campo es requerido</div>
                             </div>
                             <div class="form-group">
                                 <label>Dirección</label>
-                                <input name="text" type="text" class="form-control" formControlName="direccion">
+                                <input name="text" type="text" class="form-control" formControlName="direccion" 
+                                       [class.is-invalid]="getNoValido('direccion')">
+                                <div class="invalid-feedback" *ngIf="getNoValido('direccion')">Este campo es requerido</div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-2 mt-md-3 mt-lg-4">Registrate</button>
                     </form>
+                    <!-- <p>{{this.forma.valid | json}}</p> -->
                 </div>
             </div>
         </div>

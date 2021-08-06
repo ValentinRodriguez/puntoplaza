@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControlName, Validators } from '@angular/forms';
 import { TiendaService } from 'src/app/modules/shop/services/tienda/tienda.service';
 import { ClientesService } from 'src/app/shared/services/clientes/clientes.service';
+import { UiMessagesService } from 'src/app/shared/services/ui-messages.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class PagesRegisterComponent implements OnInit {
   constructor(private usuarioServ: UsersService,
               private tiendasServ: TiendaService,
               private ClientesServ: ClientesService,
+              private uiMessage: UiMessagesService,
               private fb: FormBuilder) {    
                 this.usuarioServ.getUserLogged().then(resp => {
                   this.usuario = resp
@@ -38,36 +40,38 @@ export class PagesRegisterComponent implements OnInit {
 
   crearFormulario() {
     this.forma = this.fb.group({
-      name:                  ['vendedor', Validators.required],
-      surname:               ['tienda', Validators.required],
-      email:                 ['valentinrodriguez1428@gmail.com', Validators.required],
-      is_vend:               ['v', Validators.required],
-      password:              ['123', Validators.required],
-      password_confirmation: ['123', Validators.required],
-      username:              ['', Validators.required],
+      email:                 ['', Validators.required],
+      password:              ['', Validators.required],
+      password_confirmation: ['', Validators.required],
+
+      name:                  [''],
+      surname:               [''],
+      is_vend:               ['c'],
+      username:              [''],
       foto:                  [''],
       tipo_documento:        [''], 
       documento:             [''],
-      nombre_tienda:         ['tienda 1'],
-      telefono:              ['8294552254'],
-      direccion:             ['asdfa sadf asdfasdf erer', Validators.required],
-      tipo:                  ['store', Validators.required],
+      nombre_tienda:         [''],
+      telefono:              [''],
+      direccion:             [''],
+      tipo:                  ['store'],
       estado:                ['activo'],
-      usuario_creador:       [this.usuario.username],
+      usuario_creador:       ['movilsoluciones'],
       usuario_modificador:   ['']
     })
   }
 
   ngOnInit() {
+    this.uiMessage.uiMessageAutoClose()
     this.ClientesServ.getDocumentos().subscribe((resp: any) => {
       this.documentos = resp.data;      
       this.forma.get('tipo_documento')?.setValue(2);
     })
+
+    this.setValidation();
   }
 
   tipoDoc(doc: any) {
-    console.log(doc.target.value);
-
     if (doc.target.value == 1) {
       this.cedula = false;
       this.rnc = false;
@@ -84,53 +88,91 @@ export class PagesRegisterComponent implements OnInit {
       this.pasaporte = false;
     } 
   }
+  
+  setValidation() {
+    this.forma.get('is_vend')?.valueChanges.subscribe(value =>{
+      const  name = this.forma.get('name');
+      const surname = this.forma.get('surname');
+      const  username = this.forma.get('username');
+      const  tipo_documento = this.forma.get('tipo_documento');
+      const  nombre_tienda = this.forma.get('nombre_tienda');
+      const  telefono = this.forma.get('telefono');
+      const  direccion = this.forma.get('direccion');
 
+      if (value === 'v') {
+        name?.setValidators(Validators.required);
+        surname?.setValidators(Validators.required);
+        username?.setValidators(Validators.required);
+        tipo_documento?.setValidators(Validators.required);
+        nombre_tienda?.setValidators(Validators.required);
+        telefono?.setValidators(Validators.required);
+        direccion?.setValidators(Validators.required);
+      } else {
+        name?.clearValidators();
+        surname?.clearValidators();
+        username?.clearValidators();
+        tipo_documento?.clearValidators();
+        nombre_tienda?.clearValidators();
+        telefono?.clearValidators();
+        direccion?.clearValidators();
+      }   
+      console.log(this.forma.invalid);       
+    })
+  }
   onRegister() {
-    console.log(this.email.value);
     const arr = this.email.value.split('@');
     this.forma.get('username')?.setValue(arr[0]);
-    console.log(this.forma.value);
-
-    this.usuarioServ.register(this.forma.value).subscribe((resp: any) => {
-      console.log(resp);      
-      if (resp.code === 200) {
-        const obj = {
-          nombre:            this.forma.get('nombre_tienda')?.value,
-          telefono_empresa:  this.forma.get('telefono')?.value,
-          email_empresa:     this.forma.get('email')?.value,
-          documento:         this.forma.get('documento')?.value,
-          tipo_documento:    this.forma.get('1')?.value,
-          id_pais:           this.forma.get('1')?.value,
-          id_region:         this.forma.get('7')?.value,
-          id_provincia:      this.forma.get('19')?.value,
-          id_municipio:      this.forma.get('69')?.value,
-          id_ciudad:         this.forma.get('69')?.value,
-          // calle:             this.forma.get('')?.value,
-          web:               this.forma.get('')?.value,
-          contacto:          this.forma.get('surname')?.value,
-          telefono_contacto: this.forma.get('telefono')?.value,
-          moneda:            this.forma.get('1')?.value,
-          empresa_verde:     this.forma.get('si')?.value,
-          tipo_cuadre:       this.forma.get('standard')?.value,
-          valuacion_inv:     this.forma.get('nombre_tienda')?.value,
-          tipo_empresa:      this.forma.get('D')?.value,
-          logo:              [],
-          estado:            ['activo'],
-          usuario_creador:   [this.usuario.username],
-          usuario_modificador:   ['']
-        }
-        this.tiendasServ.crearTienda(obj).subscribe((resp: any) => {
-          console.log(resp);
-          if (resp.code === 200) {
-            this.handleResponse(resp.data);            
+    if (this.forma.invalid) {
+      // this.uiMessage.getMiniInfortiveMsg('tst','error','ERROR','Debe completar los campos que son obligatorios.');
+      Object.values(this.forma.controls).forEach(control =>{          
+        control.markAllAsTouched();
+      }); 
+    } else {
+      this.usuarioServ.register(this.forma.value).subscribe((resp: any) => {
+        console.log(resp);      
+        if (resp.code === 200) {
+          if (this.tipo.value === 'v') {
+            const obj = {
+              nombre:            this.forma.get('nombre_tienda')?.value,
+              telefono_empresa:  this.forma.get('telefono')?.value,
+              email_empresa:     this.forma.get('email')?.value,
+              documento:         this.forma.get('documento')?.value || 'xxx-xxxxxxx-x',
+              tipo_documento:    '1',
+              id_pais:           '1',
+              id_region:         '7',
+              id_provincia:      '19',
+              id_municipio:      '69',
+              id_ciudad:         '69',
+              calle:             this.forma.get('direccion')?.value,
+              web:               '',
+              contacto:          this.forma.get('surname')?.value,
+              telefono_contacto: this.forma.get('telefono')?.value,
+              moneda:            '1',
+              empresa_verde:     'si',
+              tipo_cuadre:       'm',
+              valuacion_inv:     'standard',
+              tipo_empresa:      'D',
+              logo:              '',
+              estado:            'activo',
+              usuario_creador:   'movilsoluciones' 
+            }
+            
+            this.tiendasServ.crearTienda(obj).subscribe((resp: any) => {
+              console.log(resp);
+              // if (resp.code === 200) {
+              //   this.handleResponse(resp.data);            
+              // } else {
+              //   this.showErrorViaMessages()
+              // }
+            })          
           } else {
-            this.showErrorViaMessages()
+            
           }
-        })
-      } else {
-        this.showErrorViaMessages()
-      }        
-    })
+        } else {
+          this.showErrorViaMessages()
+        }        
+      });
+    }
   }
 
   handleResponse(data: any) {
@@ -143,5 +185,9 @@ export class PagesRegisterComponent implements OnInit {
     console.log('ERROR LOGIN');
     // this.msgs = [];
     // this.msgs.push({ severity: 'error', summary: 'Credenciales incorrectas' });
+  }
+
+  getNoValido(input: string) {
+    return this.forma.get(input)?.invalid && this.forma.get(input)?.touched;
   }
 }
