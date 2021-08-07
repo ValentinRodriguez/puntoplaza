@@ -118,10 +118,6 @@ export class PagesRegisterComponent implements OnInit {
   }
 
   onRegister() {
-    const arr = this.email.value.split('@');
-    this.forma.get('username')?.setValue(arr[0]);
-    this.forma.get('name')?.setValue(arr[0]);
-    this.forma.get('surname')?.setValue(arr[0]);
     if (this.forma.invalid) {
       Object.values(this.forma.controls).forEach(control =>{          
         control.markAllAsTouched();
@@ -133,11 +129,11 @@ export class PagesRegisterComponent implements OnInit {
           console.log(resp);
           this.message.close();
           if (resp.code === 200) {
-            // this.handleResponse(resp.data);            
+            this.handleResponse(resp.data);            
             if (this.tipo.value === 'v') {
               this.crearTienda();
             } else {
-              this.uiMessage.successMessage('Proceso completado.', 1500);              
+              this.uiMessage.successMessage('Proceso completado.', 3000);              
             }
           }       
         });        
@@ -170,7 +166,7 @@ export class PagesRegisterComponent implements OnInit {
       estado:            'activo',
       usuario_creador:   'movilsoluciones' 
     }
-    this.message = this.uiMessage.uiMessageAutoClose('Creando tu tienda...', '')
+    this.message = this.uiMessage.uiMessageAutoClose('Construyendo tu tienda...', '')
     setTimeout(() => {
       this.tiendasServ.crearTienda(obj).subscribe((resp: any) => {
         console.log(resp);
