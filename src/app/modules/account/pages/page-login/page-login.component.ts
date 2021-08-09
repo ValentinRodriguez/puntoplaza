@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ClientesService } from 'src/app/shared/services/clientes/clientes.service';
 import { UsersService } from "../../../../shared/services/users.service";
 
@@ -14,11 +15,10 @@ export class PageLoginComponent {
         password: null
   };
     
-  constructor(private usuarioServ: UsersService) {}
+  constructor(private usuarioServ: UsersService,
+              private router: Router) {}
 
-  onSubmit() {
-    console.log('aqui');
-    
+  onSubmit() {    
     this.usuarioServ.login(this.form).subscribe((resp: any) => {
       if (resp) {       
         this.handleResponse(resp)
@@ -30,8 +30,8 @@ export class PageLoginComponent {
 
   handleResponse(data: any) {
     console.log(data);          
-    // this.router.navigateByUrl('/');     
-    //this.usuarioServ.handleToken(data);
+    this.usuarioServ.handleToken(data);
+    this.router.navigateByUrl('/');     
   }
   
   showErrorViaMessages() {
