@@ -1,7 +1,9 @@
+import { HttpInterceptor } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControlName, Validators } from '@angular/forms';
 import { TiendaService } from 'src/app/modules/shop/services/tienda/tienda.service';
 import { ClientesService } from 'src/app/shared/services/clientes/clientes.service';
+import { ErrorInterceptorService } from 'src/app/shared/services/interceptors/error-interceptor.service';
 import { UiMessagesService } from 'src/app/shared/services/ui-messages.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 
@@ -24,6 +26,7 @@ export class PagesRegisterComponent implements OnInit {
               private tiendasServ: TiendaService,
               private ClientesServ: ClientesService,
               private uiMessage: UiMessagesService,
+              private interceptor: ErrorInterceptorService,
               private fb: FormBuilder) {    
                 this.usuario = this.usuarioServ.getUserLogged()
                 this.crearFormulario();
@@ -64,6 +67,10 @@ export class PagesRegisterComponent implements OnInit {
     this.ClientesServ.getDocumentos().subscribe((resp: any) => {
       this.documentos = resp.data;      
       this.forma.get('tipo_documento')?.setValue(2);
+    })
+
+    this.interceptor.mensajesError.subscribe((resp: any) => {
+      console.log('dfg');      
     })
     this.setValidation();
   }

@@ -28,7 +28,7 @@ export class UiMessagesService {
     })
     return ref;
   }
-  uiMessageError(text: string, title:string, footer?: string) {
+  uiMessageError(text:any, title:string, footer?: string) {
     Swal.fire({
       icon: 'error',
       title,
