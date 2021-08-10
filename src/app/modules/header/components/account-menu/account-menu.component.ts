@@ -31,13 +31,13 @@ export class AccountMenuComponent implements OnInit {
 
     onSubmit() {
         this.enviando = true;
-        this.usuarioServ.login(this.form).subscribe((resp: any) => {
+        this.usuarioServ.login(this.form).subscribe((resp: any) => {            
             this.enviando = false;
-          if (resp) {       
-            this.handleResponse(resp)
-          } else {        
-            this.showErrorViaMessages();
-          }   
+            if (resp.code == 200) {       
+                this.handleResponse(resp.data)
+            } else {        
+                this.showErrorViaMessages();
+            }   
         });
     }
     
@@ -52,13 +52,13 @@ export class AccountMenuComponent implements OnInit {
         })
     }
     
-    handleResponse(data: any) {
-        console.log(data);          
+    handleResponse(data: any) {        
         // this.router.navigateByUrl('/');     
         this.usuarioServ.handleToken(data);
     }
     
     showErrorViaMessages() {
+        this.enviando = true;
         console.log('ERROR LOGIN');          
         // this.msgs = [];
         // this.msgs.push({ severity: 'error', summary: 'Credenciales incorrectas' });

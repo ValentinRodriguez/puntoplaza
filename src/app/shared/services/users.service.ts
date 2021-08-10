@@ -41,20 +41,12 @@ export class UsersService {
   }
 
   loggedIn() {
-    return false;
-    // return this.validateToken()
+    return this.validateToken()
   }
 
   validateToken() {
-    const token = this.getTokenLocalStorage();
-    let isLoggedIn = false
-    if (token) {
-      const payload = this.payload(token);
-      if (payload) {
-        isLoggedIn =  Object.values(this.iss).indexOf(payload.iss) === 0 ? true : false;
-      }
-    }
-    return isLoggedIn
+    const token = this.getTokenLocalStorage();    
+    return token?.length === 0 ? false : true;
   }
 
   payload(token: string) {
@@ -67,7 +59,7 @@ export class UsersService {
   }
 
   getTokenLocalStorage() {
-    return localStorage.getItem('token');
+    return localStorage.getItem('token') || '';
   }
 
   setDataLocalStorage(data: any) {

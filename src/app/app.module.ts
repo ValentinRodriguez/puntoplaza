@@ -36,6 +36,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { PageOffcanvasCartComponent } from './pages/page-offcanvas-cart/page-offcanvas-cart.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptorService } from './shared/services/interceptors/error-interceptor.service';
+import { HttpHeadersService } from './shared/services/interceptors/http-headers.service';
 
 
 @NgModule({
@@ -73,6 +74,10 @@ import { ErrorInterceptorService } from './shared/services/interceptors/error-in
         // { provide: LOCALE_ID, useValue: 'it' }
         {   provide: HTTP_INTERCEPTORS,
             useClass: ErrorInterceptorService,
+            multi: true,
+        },
+        {   provide: HTTP_INTERCEPTORS,
+            useClass: HttpHeadersService,
             multi: true,
         },
     ],

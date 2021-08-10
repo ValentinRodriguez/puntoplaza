@@ -20,6 +20,7 @@
         <div class="account-menu__form-link"><a routerLink="/account/register" (click)="closeMenu.emit()">Registrate!</a></div>
         <div class="account-menu__form-link"><a routerLink="/account/login" (click)="closeMenu.emit()">Olvidaste tu contrasena</a></div>
     </form>
+    
     <ng-container *ngIf="this.logado">
         <div class="account-menu__divider"></div>
         <a routerLink="/account/dashboard" class="account-menu__user" (click)="closeMenu.emit()">
