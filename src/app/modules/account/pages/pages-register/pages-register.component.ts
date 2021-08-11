@@ -1,9 +1,8 @@
-import { HttpInterceptor } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControlName, Validators } from '@angular/forms';
 import { TiendaService } from 'src/app/modules/shop/services/tienda/tienda.service';
 import { ClientesService } from 'src/app/shared/services/clientes/clientes.service';
-import { ErrorInterceptorService } from 'src/app/shared/services/interceptors/error-interceptor.service';
+import { GlobalService } from 'src/app/shared/services/global.service';
 import { UiMessagesService } from 'src/app/shared/services/ui-messages.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 
@@ -21,12 +20,13 @@ export class PagesRegisterComponent implements OnInit {
   pasaporte = false;
   usuario: any;
   message: any;
-  
+  errores: any[] = [];
+
   constructor(private usuarioServ: UsersService,
               private tiendasServ: TiendaService,
               private ClientesServ: ClientesService,
               private uiMessage: UiMessagesService,
-              private interceptor: ErrorInterceptorService,
+              private globalServ: GlobalService,
               private fb: FormBuilder) {    
                 this.usuario = this.usuarioServ.getUserLogged()
                 this.crearFormulario();
@@ -69,9 +69,14 @@ export class PagesRegisterComponent implements OnInit {
       this.forma.get('tipo_documento')?.setValue(2);
     })
 
-    this.interceptor.mensajesError.subscribe((resp: any) => {
-      console.log('dfg');      
-    })
+    this.globalServ.mensajesError.subscribe((resp: any) => {
+      this.errores = resp.error;    
+      this.message.close();
+      setTimeout(() => {
+        this.toTop();        
+      }, 500);
+    });
+
     this.setValidation();
   }
 
@@ -130,21 +135,21 @@ export class PagesRegisterComponent implements OnInit {
         control.markAllAsTouched();
       }); 
     } else {
+      this.errores = [];
       this.message = this.uiMessage.uiMessageAutoClose('Registrando usuario', '')
       setTimeout(() => {
         this.usuarioServ.register(this.forma.value).subscribe((resp: any) => {
-          console.log(resp);
           this.message.close();
           if (resp.code === 200) {
             this.handleResponse(resp.data);            
             if (this.tipo.value === 'v') {
               this.crearTienda();
             } else {
-              this.uiMessage.successMessage('Proceso completado.', 3000);              
+              this.uiMessage.successMessage('Proceso completado.', 2000);              
             }
           }       
         });        
-      }, 3000);
+      }, 2000);
     }
   }
 
@@ -182,7 +187,7 @@ export class PagesRegisterComponent implements OnInit {
           this.uiMessage.successMessage('Proceso completado.', 1500);
         }
       })
-    }, 3000);
+    }, 2000);
   }
 
   handleResponse(data: any) {
@@ -196,6 +201,14 @@ export class PagesRegisterComponent implements OnInit {
     // this.msgs = [];
     // this.msgs.push({ severity: 'error', summary: 'Credenciales incorrectas' });
   }
+
+  toTop(): void {
+    try {
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    } catch {
+        window.scrollTo(0, 0);
+    }
+}
 
   getNoValido(input: string) {
     return this.forma.get(input)?.invalid && this.forma.get(input)?.touched;

@@ -2,15 +2,16 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { GlobalService } from '../global.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorInterceptorService implements HttpInterceptor{
 
-  mensajesError = new EventEmitter()
   
-  constructor() { }
+  
+  constructor(private globalServ: GlobalService) { }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       
       return next.handle( req ) .pipe(
@@ -31,7 +32,7 @@ export class ErrorInterceptorService implements HttpInterceptor{
     for (const property in error.error.errors) {
       errores.push(...error.error.errors[property])
     }
-    this.mensajesError.emit({ 'mensaje': error.error.message, 'error': errores });
+    this.globalServ.emisorErrores(error,errores)
     
     // this.message.uiMessageError(errores,error.error.message);  
       // switch (error.status) {
