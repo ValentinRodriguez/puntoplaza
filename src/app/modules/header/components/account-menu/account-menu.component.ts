@@ -12,7 +12,8 @@ export class AccountMenuComponent implements OnInit {
     
     form = {
         email: null,
-        password: null
+        password: null,
+        store: true
     };
 
     logado = false;
@@ -33,11 +34,10 @@ export class AccountMenuComponent implements OnInit {
         this.enviando = true;
         this.usuarioServ.login(this.form).subscribe((resp: any) => {            
             this.enviando = false;
+            console.log(resp.data);            
             if (resp.code == 200) {       
                 this.handleResponse(resp.data)
-            } else {        
-                this.showErrorViaMessages();
-            }   
+            }  
         });
     }
     
@@ -53,7 +53,7 @@ export class AccountMenuComponent implements OnInit {
     }
     
     handleResponse(data: any) {        
-        // this.router.navigateByUrl('/');     
+        this.router.navigateByUrl('/');     
         this.usuarioServ.handleToken(data);
     }
     

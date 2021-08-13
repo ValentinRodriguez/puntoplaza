@@ -28,7 +28,6 @@ import { PageTrackOrderComponent } from './pages/page-track-order/page-track-ord
 import { PageWishlistComponent } from './pages/page-wishlist/page-wishlist.component';
 import { ProductSidebarComponent } from './components/product-sidebar/product-sidebar.component';
 import { PageOrderSuccessComponent } from './pages/page-order-success/page-order-success.component';
-import { PagesCreateProductComponent } from './pages/pages-create-product/pages-create-product.component';
 
 @NgModule({
     declarations: [
@@ -45,8 +44,7 @@ import { PagesCreateProductComponent } from './pages/pages-create-product/pages-
         PageTrackOrderComponent,
         PageWishlistComponent,
         ProductSidebarComponent,
-        PageOrderSuccessComponent,
-        PagesCreateProductComponent
+        PageOrderSuccessComponent
     ],
     imports: [
         // modules (angular)

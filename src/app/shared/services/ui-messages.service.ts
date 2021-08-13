@@ -15,6 +15,7 @@ export class UiMessagesService {
       html: sub,
       //timer: 5000,
       timerProgressBar: true,
+      allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading()
         // let b = Swal.getHtmlContainer()?.querySelector('b')?.textContent
@@ -28,6 +29,7 @@ export class UiMessagesService {
     })
     return ref;
   }
+  
   uiMessageError(text:any, title:string, footer?: string) {
     Swal.fire({
       icon: 'error',
@@ -37,13 +39,13 @@ export class UiMessagesService {
     })
   }
 
-  successMessage(title: string, timer: number) {
+  successMessage(title: string) {
     Swal.fire({
       position: 'center',
       icon: 'success',
       title,
-      showConfirmButton: false,
-      timer
+      showConfirmButton: true,
+      timer: 1000
     })
   }
 }

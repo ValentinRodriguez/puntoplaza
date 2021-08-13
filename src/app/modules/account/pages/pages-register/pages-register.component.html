@@ -21,7 +21,8 @@
                             <label>Email (correo)</label>
                             <input name="email" type="email" class="form-control is-invalid" formControlName="email" 
                                    [class.is-invalid]="getNoValido('email')">
-                            <div class="invalid-feedback" *ngIf="getNoValido('email')">Este campo es requerido</div>
+                            <div class="invalid-feedback" *ngIf="getNoValido('email')">Este campo es requerido.</div>
+                            <div class="invalid-feedback" *ngIf="emailInvalido('email')">Este correo no es válido.</div>
                         </div>
                         <div class="form-group">
                             <label>Nombre</label>
@@ -51,7 +52,8 @@
                             <label>Repetir Contraseña</label>
                             <input name="password2" type="password" class="form-control" formControlName="password_confirmation" 
                                    [class.is-invalid]="getNoValido('password_confirmation')">
-                            <div class="invalid-feedback" *ngIf="getNoValido('password_confirmation')">Este campo es requerido</div>
+                            <div class="invalid-feedback" *ngIf="getNoValido('password_confirmation') && !passwordRepetido">Este campo es requerido.</div>
+                            <div class="invalid-feedback" *ngIf="passwordRepetido">Las contraseñas no coinciden.</div>
                         </div>
                         <div class="form-check form-check-inline">
                             <input name="is_vend" class="form-check-input" type="radio" id="inlineRadio2" 
@@ -64,7 +66,7 @@
                             <label class="form-check-label" for="inlineRadio1">Vendedor</label>
                         </div>
                          <br> 
-                        <div *ngIf="this.tipo.value === 'v'" class="form-group" style="margin-top: 20px">
+                        <div *ngIf="this.tipo === 'v'" class="form-group" style="margin-top: 20px">
                             <div class="form-group">
                                 <label>Nombre de la tienda</label>
                                 <input name="text" type="text" formControlName="nombre_tienda" class="form-control" 

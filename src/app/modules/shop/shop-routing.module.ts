@@ -12,8 +12,6 @@ import { ProductsListResolverService } from './resolvers/products-list-resolver.
 import { CategoryResolverService } from './resolvers/category-resolver.service';
 import { ProductResolverService } from './resolvers/product-resolver.service';
 import { PageOrderSuccessComponent } from './pages/page-order-success/page-order-success.component';
-import { PagesCreateProductComponent } from './pages/pages-create-product/pages-create-product.component';
-import { LoginGuard } from './guards/login.guard';
 
 const categoryPageData: Data = {
     // Number of products per row. Possible values: 3, 4, 5.
@@ -51,7 +49,7 @@ const routes: Routes = [
         },
     },
     {path: 'cart',pathMatch: 'full',component: PageCartComponent},
-    {path: 'publicar',pathMatch: 'full',component: PagesCreateProductComponent,canActivate: [LoginGuard]},
+    // {path: 'publicar',pathMatch: 'full',component: PagesCreateProductComponent,canActivate: [LoginGuard]},
     {path: 'cart/checkout',component: PageCheckoutComponent,canActivate: [CheckoutGuard]},
     {path: 'cart/checkout/success',component: PageOrderSuccessComponent},
     {path: 'wishlist',component: PageWishlistComponent},

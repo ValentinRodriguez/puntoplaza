@@ -58,12 +58,14 @@ export class UsersService {
     return JSON.parse(atob(payload));
   }
 
-  getTokenLocalStorage() {
+  getTokenLocalStorage() {    
     return localStorage.getItem('token') || '';
   }
 
   setDataLocalStorage(data: any) {
-    localStorage.setItem('token', data.access_token);
+    console.log(data);
+    
+    localStorage.setItem('token', data.access_token.accessToken);
     localStorage.setItem('user', JSON.stringify(data.user));
     this.usuarioLogado.emit(true)
   }

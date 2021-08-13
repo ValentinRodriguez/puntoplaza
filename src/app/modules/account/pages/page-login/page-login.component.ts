@@ -14,22 +14,22 @@ export class PageLoginComponent {
         email: 'valentinrodriguez1427@gmail.com',
         password: null
   };
+  enviando = false;
     
   constructor(private usuarioServ: UsersService,
               private router: Router) {}
 
   onSubmit() {    
-    this.usuarioServ.login(this.form).subscribe((resp: any) => {
-      if (resp) {       
-        this.handleResponse(resp)
-      } else {        
-        this.showErrorViaMessages();
-      }   
+    this.enviando = true;
+    this.usuarioServ.login(this.form).subscribe((resp: any) => {            
+        this.enviando = false;         
+        if (resp.code == 200) {       
+            this.handleResponse(resp.data)
+        }  
     });
   }
 
-  handleResponse(data: any) {
-    console.log(data);          
+  handleResponse(data: any) {  
     this.usuarioServ.handleToken(data);
     this.router.navigateByUrl('/');     
   }

@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalService } from 'src/app/shared/services/global.service';
 import { StoreService } from '../../shared/services/store.service';
+import { UsersService } from '../../shared/services/users.service';
 
 @Component({
     selector: 'app-header',
@@ -8,12 +10,19 @@ import { StoreService } from '../../shared/services/store.service';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-    @Input() layout: 'classic'|'compact' = 'classic';
+    
+    @Input() layout: 'classic' | 'compact' = 'classic';
 
-    constructor(public store: StoreService,
-                private router: Router) { }
+    constructor(private store: StoreService,
+                private usuarioServ: UsersService,
+                private globalServ: GlobalService,
+                private router: Router ) { }
 
-    navegar(ruta:string) {
-        this.router.navigate([ruta]);
+    navegar() {
+        if (this.usuarioServ.loggedIn()) {
+            this.globalServ.adminDashboard(1)            
+        } else {
+            this.router.navigate(['/account/login']);
+        }
     }
 }

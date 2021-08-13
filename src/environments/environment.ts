@@ -7,6 +7,7 @@ export const environment = {
     url: 'http://movilsoluciones_pos.test:8090/api',
     urlImagenes: 'http://movilsoluciones_pos.test:8090',
     urlApi: 'https://vindecoder.p.rapidapi.com/v1.1/decode_vin?vin=',
+    urlProductosPlaza: 'http://localhost:55703/#/plaza-online/creacion-productos-plaza',
     pusher_ID: '123',
     pusher_KEY: '123',
     pusher_SECRET: '123',

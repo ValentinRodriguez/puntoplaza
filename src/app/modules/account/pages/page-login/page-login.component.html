@@ -33,7 +33,8 @@
                                 <label class="form-check-label" for="login-remember">Recuerdame</label>
                             </div>
                         </div>
-                        <button (click)="onSubmit()" type="button" class="btn btn-primary mt-2 mt-md-3 mt-lg-4">Acceder</button>
+                        <button *ngIf="!this.enviando" (click)="onSubmit()" type="button" class="btn btn-primary btn-sm">Acceder</button>
+                        <button *ngIf="this.enviando" class="btn-sm btn-primary btn-loading"></button>{{ ' ' }}
                     </form>
                 </div>
             </div>
