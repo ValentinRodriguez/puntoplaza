@@ -16,7 +16,7 @@
             <button *ngIf="!this.enviando" (click)="onSubmit()" type="button" class="btn btn-primary btn-sm">Acceder</button>
             <button *ngIf="this.enviando" class="btn-sm btn-primary btn-loading"></button>{{ ' ' }}
         </div>
-        <div class="account-menu__form-link"><a routerLink="/account/register" (click)="closeMenu.emit()">Registrate!</a></div>
+        <div class="account-menu__form-link"><a routerLink="/account/planes" (click)="closeMenu.emit()">Registrate!</a></div>
         <div class="account-menu__form-link"><a routerLink="/account/login" (click)="closeMenu.emit()">Olvidaste tu contrasena</a></div>
     </form>
     

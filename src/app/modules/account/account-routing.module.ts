@@ -11,6 +11,7 @@ import { PageOrderDetailsComponent } from './pages/page-order-details/page-order
 import { PageEditAddressComponent } from './pages/page-edit-address/page-edit-address.component';
 import { PagesRegisterComponent } from './pages/pages-register/pages-register.component';
 import { NoLoggedGuard } from '../shop/guards/no-logged.guard';
+import { PlanesComponent } from './pages/pages-planes/planes.component';
 
 
 const routes: Routes = [
@@ -28,8 +29,9 @@ const routes: Routes = [
             {path: 'password',component: PagePasswordComponent}
         ]
     },
+    {path: 'planes',component: PlanesComponent, canActivate:[NoLoggedGuard]},
     {path: 'login',component: PageLoginComponent},
-    {path: 'register',component: PagesRegisterComponent, canActivate:[NoLoggedGuard]}
+    {path: 'register/:idRegistro',component: PagesRegisterComponent, canActivate:[NoLoggedGuard]}
 ];
 
 @NgModule({

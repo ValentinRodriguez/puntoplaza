@@ -1,0 +1,52 @@
+<app-page-header [breadcrumbs]="[
+    {label: 'Home',       url: '/'},
+    {label: 'Mi Cuenta', url: ''}
+]"></app-page-header>
+
+<div class="block">
+    <div id="generic_price_table">   
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="price-heading clearfix">
+                            <h1>Elige tu plan.</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 shadow" *ngFor="let item of planes">
+                        <div class="generic_content clearfix" [ngClass]="{ active: item.popular == 1 }">
+                            <div class="generic_head_price clearfix">
+                                <div class="generic_head_content clearfix">
+                                    <div class="head_bg"></div>
+                                    <div class="head">
+                                        <span>{{item.titulo}}</span>
+                                    </div>                                    
+                                </div>
+                                <div class="generic_price_tag clearfix">  
+                                    <span class="price">
+                                        <span class="sign" *ngIf="item.tipo != 1">$</span>
+                                        <span class="currency">{{item.precio}}</span>
+                                        <span class="cent" *ngIf="item.tipo != 1">.{{item.cent}}</span>
+                                        <span class="month" *ngIf="item.tipo != 1">/Mensual</span>
+                                    </span>
+                                </div>                                
+                            </div>
+                            <div class="generic_feature_list">
+                                <ul>
+                                    <li *ngFor="let itemD of item.detalles">{{itemD}}</li>
+                                </ul>
+                            </div>
+                            <div class="generic_price_btn clearfix">
+                            <a routerLink="/account/register/{{item.tipo}}">Registrate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>                  
+            </div>
+        </section>
+    </div>
+</div>

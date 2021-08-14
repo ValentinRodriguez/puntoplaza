@@ -13,8 +13,7 @@ export class HeaderComponent {
     
     @Input() layout: 'classic' | 'compact' = 'classic';
 
-    constructor(private store: StoreService,
-                private usuarioServ: UsersService,
+    constructor(private usuarioServ: UsersService,
                 private globalServ: GlobalService,
                 private router: Router ) { }
 

@@ -7,11 +7,11 @@ const URL = environment.url;
 @Injectable({
   providedIn: 'root'
 })
-export class TiendaService {
+export class PlanesService {
 
   constructor(private http: HttpClient) { }
   
-  crearTienda(data: any) {
-    return this.http.post(`${URL}/empresa`, data)
+  planes() {
+    return this.http.get(`${URL}/planes`)
   }
 }

@@ -20,6 +20,7 @@ import { PageProfileComponent } from './pages/page-profile/page-profile.componen
 import { PageOrderDetailsComponent } from './pages/page-order-details/page-order-details.component';
 import { PageEditAddressComponent } from './pages/page-edit-address/page-edit-address.component';
 import { PagesRegisterComponent } from './pages/pages-register/pages-register.component';
+import { PlanesComponent } from './pages/pages-planes/planes.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { PagesRegisterComponent } from './pages/pages-register/pages-register.co
         PageProfileComponent,
         PageOrderDetailsComponent,
         PageEditAddressComponent,
-        PagesRegisterComponent
+        PagesRegisterComponent,
+        PlanesComponent
     ],
     imports: [
         // modules (angular)
