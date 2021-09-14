@@ -43,8 +43,8 @@ export class PagesRegisterComponent implements OnInit {
   crearFormulario() {
     this.forma = this.fb.group({
       email:                 ['', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
-      password:              ['', Validators.required],
-      password_confirmation: ['', Validators.required],
+      password:              ['123', Validators.required],
+      password_confirmation: ['123', Validators.required],
 
       name:                  [''],
       surname:               [''],
@@ -86,7 +86,7 @@ export class PagesRegisterComponent implements OnInit {
   
   ngOnInit() {
     this.ClientesServ.getDocumentos().subscribe((resp: any) => {
-      this.documentos = resp.data;      
+      this.documentos = resp.data;   
       this.forma.get('tipo_documento')?.setValue(2);
     })
 
@@ -97,25 +97,26 @@ export class PagesRegisterComponent implements OnInit {
         this.toTop();        
       }, 500);
     });
-
     this.setValidation();
   }
 
   tipoDoc(doc: any) {
+    
+    
     if (doc.target.value == 1) {
-      this.cedula = false;
-      this.rnc = false;
-      this.pasaporte = true;
-    } 
-    if (doc.target.value == 2) {
       this.cedula = true;
       this.rnc = false;
       this.pasaporte = false;
     } 
-    if (doc.target.value == 3) {
+    if (doc.target.value == 2) {
       this.cedula = false;
       this.rnc = true;
       this.pasaporte = false;
+    } 
+    if (doc.target.value == 3) {
+      this.cedula = false;
+      this.rnc = false;
+      this.pasaporte = true;
     }
     if (doc.target.value == 4) {
       this.cedula = false;
@@ -143,37 +144,47 @@ export class PagesRegisterComponent implements OnInit {
         telefono?.clearValidators();
         direccion?.clearValidators();
       }   
-      // console.log(this.forma.invalid);       
+      
     })
   }
 
   onRegister() {
-    this.globalServ.adminDashboard(1)
-    // if (this.forma.invalid) {
-    //   Object.values(this.forma.controls).forEach(control =>{          
-    //     control.markAllAsTouched();
-    //   }); 
-    // } else {
-    //   this.errores = [];
-    //   this.message = this.uiMessage.uiMessageAutoClose('Registrando usuario', '')
-    //   setTimeout(() => {
-    //     this.usuarioServ.register(this.forma.value).subscribe((resp: any) => {                    
-    //       this.message.close();
-    //       console.log(resp);
-    //       if (resp.code === 200) {
-    //         if (this.tipo === 'v') {
-    //           this.crearTienda();
-    //         } else {
-    //           this.handleResponse(resp.data);            
-    //           this.uiMessage.successMessage('Proceso completado.');              
-    //         }
-    //       }       
-    //     });        
-    //   }, 2000);
-    // }
+    // this.globalServ.adminDashboard(1);
+    if (this.forma.invalid) {
+      Object.values(this.forma.controls).forEach(control =>{          
+        control.markAllAsTouched();
+      }); 
+    } else {
+      this.errores = [];
+      this.message = this.uiMessage.uiMessageAutoClose('Registrando usuario', '')
+      setTimeout(() => {
+        this.usuarioServ.register(this.forma.value).subscribe((resp: any) => {                    
+          this.message.close();          
+          if (resp.code === 200) {            
+            this.getAccessToken(this.forma.value);           
+          }       
+        });        
+      }, 2000);
+    }
   }
 
-  crearTienda() {
+  getAccessToken(data: any) {
+    this.message = this.uiMessage.uiMessageAutoClose('Adquiriendo Credenciales', '');
+    setTimeout(() => {
+      this.usuarioServ.getMyOauthToken(data).subscribe((resp: any) => {
+        this.message.close();        
+        const obj = Object.assign(data, resp);        
+        if (this.tipo === 'v') {
+          this.crearTienda(obj);
+        } else {
+          this.handleResponse(obj);            
+          this.uiMessage.successMessage('Proceso completado.');              
+        }       
+      })
+    }, 2000);
+  }
+
+  crearTienda(data: any) {
     const obj = {
       nombre:            this.forma.get('nombre_tienda')?.value,
       telefono_empresa:  this.forma.get('telefono')?.value,
@@ -200,18 +211,18 @@ export class PagesRegisterComponent implements OnInit {
     }
     this.message = this.uiMessage.uiMessageAutoClose('Construyendo tu tienda...', '')
     setTimeout(() => {
-      this.tiendasServ.crearTienda(obj).subscribe((resp: any) => {
-        console.log(resp);
+      this.tiendasServ.crearTienda(obj).subscribe((resp: any) => {        
         this.message.close();
         if (resp.code === 200) {
+          const obj2 = Object.assign(data, resp.data);
+          this.handleResponse(obj2)
           this.uiMessage.successMessage('Proceso completado.');
         }
       })
     }, 2000);
   }
 
-  handleResponse(data: any) {
-    console.log(data);          
+  handleResponse(data: any) {    
     // this.router.navigateByUrl('/');     
     this.usuarioServ.handleToken(data);
   }

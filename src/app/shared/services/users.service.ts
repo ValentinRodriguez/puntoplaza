@@ -31,6 +31,14 @@ export class UsersService {
     this.setDataLocalStorage(data);    
   }
 
+  getMyOauthToken(form: any) {           
+    const data = {
+      username: form.email,
+      password: form.password
+    };
+    return this.http.post(`${URL}/auth/token`, data);
+  }
+
   getUserLogged() {
     let user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user !== null) {
@@ -63,8 +71,7 @@ export class UsersService {
   }
 
   setDataLocalStorage(data: any) {
-    console.log(data);
-    
+    console.log(data);    
     localStorage.setItem('token', data.access_token.accessToken);
     localStorage.setItem('user', JSON.stringify(data.user));
     this.usuarioLogado.emit(true)
